@@ -1,7 +1,7 @@
-import { BaseService } from "./BaseService"
-import OpenChordService from "./OpenChordService"
+import {BaseService} from './BaseService';
+import GasyTabService from './GasyTabService';
 
-export const services: BaseService[] = [new OpenChordService()]
+export const services: BaseService[] = [new GasyTabService()];
 export const getService = (serviceName: string) => {
-  return services.find(s => s.name == serviceName)
-}
+  return services.find(s => s.name == serviceName);
+};
