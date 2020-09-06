@@ -8,7 +8,7 @@ import React, {
 import {Song} from '../db';
 import ListItem from '../components/ListItem';
 import TouchableIcon from '../components/TouchableIcon';
-import {FlatList, StatusBar} from 'react-native';
+import {FlatList, StatusBar, View, Alert} from 'react-native';
 import SearchBar from '../components/SearchBar';
 import EmptyListMessage from '../components/EmptyListMessage';
 import {MainTabParamList, RootStackParamList} from '../AppNavigation';
@@ -22,6 +22,11 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import CustomHeader from '../components/CustomHeader';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {alertDelete} from '../utils/alertDelete';
+import DocumentPicker from 'react-native-document-picker';
+import {createBundle, importBundle, decodeJsonBundle} from '../db/bundler';
+import RNFS from 'react-native-fs';
+import createFile from '../utils/createFile';
+import Share from 'react-native-share';
 
 type SongListScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList, 'SongList'>,
@@ -34,6 +39,7 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
   const {navigation} = props;
   const [songs, setSongs] = useState(Song.getAll());
   const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
   const {t} = useContext(LanguageContext);
 
   function onSelectSong(id: string, title: string) {
@@ -41,6 +47,43 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
   }
   function addNewSong() {
     props.navigation.navigate('SongEdit');
+  }
+  async function importSong() {
+    if (loading) return;
+    setLoading(true);
+    try {
+      const res = await DocumentPicker.pick({
+        type: [DocumentPicker.types.allFiles],
+      });
+      let success = await RNFS.readFile(res.uri, 'utf8');
+      let bundle = await decodeJsonBundle(success);
+      importBundle(bundle);
+      Alert.alert(t('info'), t('songs_imported_successfully'));
+    } catch (err) {
+      if (DocumentPicker.isCancel(err)) {
+        // User cancelled the picker, exit any dialogs or menus and move on
+      } else {
+        throw err;
+      }
+    }
+    setLoading(false);
+  }
+  async function onPressShare(s: Song) {
+    try {
+      let bundle = createBundle([], [s.id!]);
+      let bundleString = JSON.stringify(bundle);
+      let path = await createFile(
+        'downloads',
+        'Hira' + '_' + s.title.toLowerCase() + '_' + s.lyricist,
+        bundleString,
+      );
+      await Share.open({
+        url: 'file://' + path,
+        message: t('share_message'),
+      });
+    } catch (e) {
+      console.warn(e.message);
+    }
   }
   function onPressEditSong(id: string) {
     props.navigation.navigate('SongEdit', {id});
@@ -57,13 +100,6 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
       setSongs(Song.getAll());
     });
   }
-
-  useEffect(() => {
-    if (Song.shouldUpdateDb()) {
-      Song.populateDb();
-      setSongs(Song.getAll());
-    }
-  }, []);
 
   useEffect(() => {
     if (query != '') {
@@ -88,7 +124,13 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <CustomHeader
         title={t('songs')}
-        headerRight={<TouchableIcon onPress={addNewSong} name="plus" />}
+        //headerRight={<TouchableIcon onPress={addNewSong} name="plus" />}
+        headerRight={
+          <View style={{flexDirection: 'row'}}>
+            <TouchableIcon onPress={importSong} name="import" />
+            <TouchableIcon onPress={addNewSong} name="plus" />
+          </View>
+        }
       />
       <SearchBar
         onChangeText={value => setQuery(value)}
@@ -98,15 +140,6 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
       <FlatList
         data={songs}
         contentContainerStyle={songs.length <= 0 ? {flex: 1} : {}}
-        ListEmptyComponent={
-          <EmptyListMessage
-            message={t('you_havent_downloaded_any_song_yet')}
-            onPress={() => {
-              props.navigation.navigate('OnlineSearch');
-            }}
-            buttonTitle={t('go_to_online_search').toUpperCase()}
-          />
-        }
         renderItem={({item}) => {
           return (
             <ListItem
@@ -120,6 +153,10 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
                   onPress: () => onPressGoToArtist(item.id!),
                 },
                 {title: t('edit'), onPress: () => onPressEditSong(item.id!)},
+                {
+                  title: t('share'),
+                  onPress: () => onPressShare(item),
+                },
                 {
                   title: t('delete'),
                   onPress: () => onPressDeleteSong(item.id!),
