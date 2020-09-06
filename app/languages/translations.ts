@@ -1,4 +1,4 @@
-export const languages = ['en_us', 'pt_br', 'mg_md'] as const;
+export const languages = ['mg_md', 'en_us', 'pt_br'] as const;
 export const sentences = [
   'language_name',
   'language_english_name',
