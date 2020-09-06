@@ -7,6 +7,7 @@ export const sentences = [
   'playlists',
   'online_search',
   'artists',
+  'lyricist_name',
   'songs',
   'preview',
   'add_songs',
@@ -70,6 +71,7 @@ export const sentences = [
   'invalid_file',
   'you_can_still_create_songs_manually',
   'create_song',
+  'invalid_lyricist',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -109,6 +111,7 @@ const translations: Languages = {
     import: 'Import',
     import_description: 'Backups, Playlists and .gasytab files',
     artist_name: 'Artist Name',
+    lyricist_name: 'Lyricist Name',
     chords_over_lyrics: 'Chords over Lyrics',
     invalid_artist: 'Invalid Artist',
     invalid_content: 'Invalid Content',
@@ -153,6 +156,7 @@ const translations: Languages = {
     invalid_file: 'Invalid file',
     you_can_still_create_songs_manually: 'You can still create songs manually',
     create_song: 'Create song',
+    invalid_lyricist: 'Invalid lyricist',
   },
   pt_br: {
     language_name: 'Português (Brasil)',
@@ -167,6 +171,7 @@ const translations: Languages = {
     add_songs: 'Adicionar Músicas',
     edit_song: 'Editar Música',
     edit: 'Editar',
+    lyricist_name: 'Lyricist Name',
     delete: 'Remover',
     go_to_online_search: 'Ir para Busca Online',
     go_to_artist: 'Ir para Artista',
@@ -232,6 +237,7 @@ const translations: Languages = {
     you_can_still_create_songs_manually:
       'Você ainda pode criar músicas manualmente',
     create_song: 'Criar música',
+    invalid_lyricist: 'Invalid lyricist',
   },
   mg_md: {
     language_name: 'Malagasy',
@@ -240,6 +246,7 @@ const translations: Languages = {
     settings: 'Kirakira',
     playlists: 'Lisitra',
     artists: 'Mpihira',
+    lyricist_name: "Anaran'ny mpampiditra",
     online_search: 'Hitady Tranokala',
     songs: 'Hira',
     preview: 'Jerena',
@@ -293,8 +300,8 @@ const translations: Languages = {
     songs_imported_successfully: 'Tafiditra soamantsara',
     song_downloaded: 'Tafiditra hira',
     text_size: 'Angeza soratra',
-    show_tabs_by_default: 'Tononkira misy akoro',
-    hide_tabs_by_default: 'Tononkira ihany',
+    show_tabs_by_default: 'Aseho Tab',
+    hide_tabs_by_default: 'Tsy aseho Tab',
     enable_page_turner_by_default: 'Alefa ny fanovana pejy',
     disable_page_turner_by_default: 'Tsy alefa ny fanovana pejy',
     sort_by_title: 'Sort by title',
@@ -307,7 +314,8 @@ const translations: Languages = {
     transpose: 'Transpose',
     add_to_playlist: 'Add to playlist',
     you_can_still_create_songs_manually: 'You can still create songs manually',
-    create_song: 'Create song',
+    create_song: 'Hira vaovao',
+    invalid_lyricist: 'Tsy manakery mpampiditra',
   },
 };
 export default translations;
