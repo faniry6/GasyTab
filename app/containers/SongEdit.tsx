@@ -23,6 +23,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const [title, setTitle] = useState("")
   const [artist, setArtist] = useState("")
   const [content, setContent] = useState("")
+  const [lyricist, setLyricist] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [mode, setMode] = useState<'CHORD_PRO' | 'CHORD_SHEET'>('CHORD_PRO')
   const { t } = useContext(LanguageContext)
@@ -32,6 +33,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
     text = text.replace(/{t:[^}]+}\n?/g, '')
     text = text.replace(/{artist:[^}]+}\n?/g, '')
     text = text.replace(/{a:[^}]+}\n?/g, '')
+    text = text.replace(/{lyricist:[^}]+}\n?/g, '')
     return text
   }
   useEffect(() => {
@@ -40,6 +42,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
       let song = Song.getById(id)!
       setTitle(song.title)
       setArtist(song.artist.name)
+      setLyricist(song.lyricist)
       setContent(removeMetaTags(song.content))
     }
   }, [])
@@ -48,9 +51,13 @@ const SongEdit: FunctionComponent<Props> = (props) => {
     if (title.trim() == '') return setError(t('invalid_title'))
     if (artist.trim() == '') return setError(t('invalid_artist'))
     if (content.trim() == '') return setError(t('invalid_content'))
+    if (lyricist.trim() == '') return setError(t('invalid_lyricist'))
+
     let artistName = artist.trim()
     let songTitle = title.trim()
+    let lyricistName = lyricist.trim()
     let chordPro = content
+
     if (mode == 'CHORD_SHEET') {
       const formatter = new ChordSheetJS.ChordProFormatter();
       let chordSheetSong = new ChordSheetJS.ChordSheetParser({ preserveWhitespace: false }).parse(content)
@@ -62,12 +69,12 @@ const SongEdit: FunctionComponent<Props> = (props) => {
       artistDb = Artist.create(artistName)
     }
     if (songId) {
-      Song.update(songId, artistDb, songTitle, chordPro)
+      Song.update(songId, artistDb, songTitle, lyricistName, chordPro)
     } else {
-      let song = Song.create(artistDb, songTitle, chordPro)
+      let song = Song.create(artistDb, songTitle, lyricistName, chordPro)
       songId = song.id
     }
-    props.navigation.replace('SongView', { id: songId, title: songTitle })
+    props.navigation.replace('SongView', { id: songId, title: songTitle})
   }
 
   function switchToChordPro() {
@@ -120,6 +127,15 @@ const SongEdit: FunctionComponent<Props> = (props) => {
           autoCapitalize='words'
           onChangeText={setArtist}
           value={artist}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={t('lyricist_name')}
+          autoFocus={false}
+          autoCorrect={false}
+          autoCapitalize='words'
+          onChangeText={setLyricist}
+          value={lyricist}
         />
         <View style={styles.tabsContainer}>
           <TouchableOpacity
