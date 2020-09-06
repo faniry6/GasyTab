@@ -71,6 +71,12 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
       setPlaylists(Playlist.getAll());
     }, []),
   );
+  useEffect(() => {
+    if (Song.shouldUpdateDb()) {
+      Song.populateDb();
+      //setSongs(Song.getAll());
+    }
+  }, []);
   // Default build in playlist from gasyTab
   useEffect(() => {
     if (Playlist.getByName('Kaiamba') == null) {
