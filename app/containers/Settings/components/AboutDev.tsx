@@ -8,7 +8,7 @@ const AboutDev = () => {
 
   async function goToDevURL() {
     try {
-      await Linking.openURL('https://www.gasytablature.com/');
+      await Linking.openURL('https://github.com/faniry6/GasyTab');
     } catch (e) {
       console.warn(e);
     }
