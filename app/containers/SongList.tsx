@@ -68,13 +68,13 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
     }
     setLoading(false);
   }
-  async function onPressShare(s: Song) {
+  async function onPressShare(id: string, title: string, lyricist: string) {
     try {
-      let bundle = createBundle([], [s.id!]);
+      let bundle = createBundle([], [id]);
       let bundleString = JSON.stringify(bundle);
       let path = await createFile(
-        'downloads',
-        'Hira' + '_' + s.title.toLowerCase() + '_' + s.lyricist,
+        'documents',
+        'Hira' + '_' + title.toLowerCase() + '_' + lyricist,
         bundleString,
       );
       await Share.open({
@@ -155,7 +155,8 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
                 {title: t('edit'), onPress: () => onPressEditSong(item.id!)},
                 {
                   title: t('share'),
-                  onPress: () => onPressShare(item),
+                  onPress: () =>
+                    onPressShare(item.id!, item.title, item.lyricist),
                 },
                 {
                   title: t('delete'),
