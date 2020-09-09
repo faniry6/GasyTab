@@ -29,11 +29,11 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const { t } = useContext(LanguageContext)
 
   function removeMetaTags(text: string) {
-    text = text.replace(/{title:[^}]+}\n?/g, '')
-    text = text.replace(/{t:[^}]+}\n?/g, '')
-    text = text.replace(/{artist:[^}]+}\n?/g, '')
-    text = text.replace(/{a:[^}]+}\n?/g, '')
-    text = text.replace(/{lyricist:[^}]+}\n?/g, '')
+    text = text.replace(/{title:[^}]*}\s\n/g, '')
+    text = text.replace(/{t:[^}]*}\s\n/g, '')
+    text = text.replace(/{artist:[^}]*}\s\n/g, '')
+    text = text.replace(/{a:[^}]*}\s\n/g, '')
+    text = text.replace(/{lyricist:[^}]*}\s\n/g, '')
     return text
   }
   useEffect(() => {
