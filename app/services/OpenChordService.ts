@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { BaseService, Doc, SongDoc } from './BaseService'
 
-export default class OpenChordService extends BaseService {
+export default class GasyTabService extends BaseService {
   constructor() {
     super()
     this.name = 'CifraLivre'

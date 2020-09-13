@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* OpenChordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* OpenChordTests.m */; };
+		00E356F31AD99517003FC87E /* GasyTabTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GasyTabTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -15,10 +15,10 @@
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* OpenChordTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* OpenChordTests.m */; };
+		2DCD954D1E0B4F2C00145EB5 /* GasyTabTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GasyTabTests.m */; };
 		6B4B888A9006C1B240FDE8D5 /* libPods-GasyTab-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB9801FE4BFECC15744D2ED /* libPods-GasyTab-tvOSTests.a */; };
 		70C6F3ED7AA1373F03C566D8 /* libPods-GasyTab-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 307D91456AF64413E2B97CAB /* libPods-GasyTab-tvOS.a */; };
-		7A3D34C67E57417B76B77F49 /* libPods-OpenChordTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD290FDBB4B8DC6AD8238C5F /* libPods-OpenChordTests.a */; };
+		7A3D34C67E57417B76B77F49 /* libPods-GasyTabTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD290FDBB4B8DC6AD8238C5F /* libPods-GasyTabTests.a */; };
 		B96D68021BBB76E670F29EE8 /* libPods-GasyTab.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21BE2E583766FEF118F99E82 /* libPods-GasyTab.a */; };
 /* End PBXBuildFile section */
 
@@ -41,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* OpenChordTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenChordTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* GasyTabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GasyTabTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* OpenChordTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenChordTests.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* GasyTabTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GasyTabTests.m; sourceTree = "<group>"; };
 		11F0D2D23B9195D2E538D1C7 /* Pods-GasyTab-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasyTab-tvOS.release.xcconfig"; path = "Target Support Files/Pods-GasyTab-tvOS/Pods-GasyTab-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* GasyTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GasyTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GasyTab/AppDelegate.h; sourceTree = "<group>"; };
@@ -54,8 +54,8 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GasyTab/main.m; sourceTree = "<group>"; };
 		21BE2E583766FEF118F99E82 /* libPods-GasyTab.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GasyTab.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		21F8946328DF7019EA984C5A /* Pods-GasyTab-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasyTab-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-GasyTab-tvOSTests/Pods-GasyTab-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		258833AE72709F6B9DCFEF3F /* Pods-OpenChordTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenChordTests.debug.xcconfig"; path = "Target Support Files/Pods-OpenChordTests/Pods-OpenChordTests.debug.xcconfig"; sourceTree = "<group>"; };
-		27781986E2F0C5CBE10D7FE7 /* Pods-OpenChordTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OpenChordTests.release.xcconfig"; path = "Target Support Files/Pods-OpenChordTests/Pods-OpenChordTests.release.xcconfig"; sourceTree = "<group>"; };
+		258833AE72709F6B9DCFEF3F /* Pods-GasyTabTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasyTabTests.debug.xcconfig"; path = "Target Support Files/Pods-GasyTabTests/Pods-GasyTabTests.debug.xcconfig"; sourceTree = "<group>"; };
+		27781986E2F0C5CBE10D7FE7 /* Pods-GasyTabTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasyTabTests.release.xcconfig"; path = "Target Support Files/Pods-GasyTabTests/Pods-GasyTabTests.release.xcconfig"; sourceTree = "<group>"; };
 		27E8962E91C80467AA89C02C /* Pods-GasyTab.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GasyTab.debug.xcconfig"; path = "Target Support Files/Pods-GasyTab/Pods-GasyTab.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* GasyTab-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GasyTab-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* GasyTab-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GasyTab-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -66,7 +66,7 @@
 		8EB9801FE4BFECC15744D2ED /* libPods-GasyTab-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GasyTab-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FD290FDBB4B8DC6AD8238C5F /* libPods-OpenChordTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OpenChordTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD290FDBB4B8DC6AD8238C5F /* libPods-GasyTabTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GasyTabTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A3D34C67E57417B76B77F49 /* libPods-OpenChordTests.a in Frameworks */,
+				7A3D34C67E57417B76B77F49 /* libPods-GasyTabTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,13 +105,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* OpenChordTests */ = {
+		00E356EF1AD99517003FC87E /* GasyTabTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* OpenChordTests.m */,
+				00E356F21AD99517003FC87E /* GasyTabTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = OpenChordTests;
+			path = GasyTabTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -144,7 +144,7 @@
 				21BE2E583766FEF118F99E82 /* libPods-GasyTab.a */,
 				307D91456AF64413E2B97CAB /* libPods-GasyTab-tvOS.a */,
 				8EB9801FE4BFECC15744D2ED /* libPods-GasyTab-tvOSTests.a */,
-				FD290FDBB4B8DC6AD8238C5F /* libPods-OpenChordTests.a */,
+				FD290FDBB4B8DC6AD8238C5F /* libPods-GasyTabTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -158,8 +158,8 @@
 				11F0D2D23B9195D2E538D1C7 /* Pods-GasyTab-tvOS.release.xcconfig */,
 				21F8946328DF7019EA984C5A /* Pods-GasyTab-tvOSTests.debug.xcconfig */,
 				575750EFBC018A86CB4880F0 /* Pods-GasyTab-tvOSTests.release.xcconfig */,
-				258833AE72709F6B9DCFEF3F /* Pods-OpenChordTests.debug.xcconfig */,
-				27781986E2F0C5CBE10D7FE7 /* Pods-OpenChordTests.release.xcconfig */,
+				258833AE72709F6B9DCFEF3F /* Pods-GasyTabTests.debug.xcconfig */,
+				27781986E2F0C5CBE10D7FE7 /* Pods-GasyTabTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -176,7 +176,7 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* GasyTab */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* OpenChordTests */,
+				00E356EF1AD99517003FC87E /* GasyTabTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				6A9A2731A3B9C0332E07B605 /* Pods */,
@@ -191,7 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* GasyTab.app */,
-				00E356EE1AD99517003FC87E /* OpenChordTests.xctest */,
+				00E356EE1AD99517003FC87E /* GasyTabTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* GasyTab-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* GasyTab-tvOSTests.xctest */,
 			);
@@ -208,9 +208,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* OpenChordTests */ = {
+		00E356ED1AD99517003FC87E /* GasyTabTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "OpenChordTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GasyTabTests" */;
 			buildPhases = (
 				B31F4345CBA18453A335E102 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -222,9 +222,9 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = OpenChordTests;
-			productName = OpenChordTests;
-			productReference = 00E356EE1AD99517003FC87E /* OpenChordTests.xctest */;
+			name = GasyTabTests;
+			productName = GasyTabTests;
+			productReference = 00E356EE1AD99517003FC87E /* GasyTabTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		13B07F861A680F5B00A75B9A /* GasyTab */ = {
@@ -329,7 +329,7 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* GasyTab */,
-				00E356ED1AD99517003FC87E /* OpenChordTests */,
+				00E356ED1AD99517003FC87E /* GasyTabTests */,
 				2D02E47A1E0B4A5D006451C7 /* GasyTab-tvOS */,
 				2D02E48F1E0B4A5D006451C7 /* GasyTab-tvOSTests */,
 			);
@@ -506,7 +506,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-OpenChordTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-GasyTabTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -580,7 +580,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* OpenChordTests.m in Sources */,
+				00E356F31AD99517003FC87E /* GasyTabTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -606,7 +606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* OpenChordTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* GasyTabTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,7 +640,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 258833AE72709F6B9DCFEF3F /* Pods-OpenChordTests.debug.xcconfig */;
+			baseConfigurationReference = 258833AE72709F6B9DCFEF3F /* Pods-GasyTabTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -648,7 +648,7 @@
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = OpenChordTests/Info.plist;
+				INFOPLIST_FILE = GasyTabTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -665,12 +665,12 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27781986E2F0C5CBE10D7FE7 /* Pods-OpenChordTests.release.xcconfig */;
+			baseConfigurationReference = 27781986E2F0C5CBE10D7FE7 /* Pods-GasyTabTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = OpenChordTests/Info.plist;
+				INFOPLIST_FILE = GasyTabTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
@@ -952,7 +952,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "OpenChordTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "GasyTabTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
