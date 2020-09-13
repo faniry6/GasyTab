@@ -5,14 +5,14 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-import {FlatList} from 'react-native';
+import { FlatList } from 'react-native';
 import ListItem from '../../components/ListItem';
-import {Playlist} from '../../db/Playlist';
-import {MainTabParamList, RootStackParamList} from '../../AppNavigation';
+import { Playlist } from '../../db/Playlist';
+import { MainTabParamList, RootStackParamList } from '../../AppNavigation';
 import TouchableIcon from '../../components/TouchableIcon';
 import EmptyListMessage from '../../components/EmptyListMessage';
 import TextInputModal from '../../components/TextInputModal';
-import {createBundle} from '../../db/bundler';
+import { createBundle } from '../../db/bundler';
 import createFile from '../../utils/createFile';
 import Share from 'react-native-share';
 import LanguageContext from '../../languages/LanguageContext';
@@ -20,12 +20,12 @@ import {
   CompositeNavigationProp,
   useFocusEffect,
 } from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import CustomHeader from '../../components/CustomHeader';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {alertDelete} from '../../utils/alertDelete';
-import {Song} from '../../db';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { alertDelete } from '../../utils/alertDelete';
+import { Song } from '../../db';
 
 type PlaylistListScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList, 'PlaylistList'>,
@@ -38,10 +38,10 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
   const [playlists, setPlaylists] = useState(Playlist.getAll());
   const [showAddPlaylistModal, setShowAddPlaylistModal] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const {t} = useContext(LanguageContext);
+  const { t } = useContext(LanguageContext);
 
   function onSelectPlaylist(id: string, name: string) {
-    props.navigation.navigate('PlaylistView', {id, title: name});
+    props.navigation.navigate('PlaylistView', { id, title: name });
   }
   function onPressDeletePlaylist(id: string) {
     alertDelete('playlist', id, () => {
@@ -71,12 +71,12 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
       setPlaylists(Playlist.getAll());
     }, []),
   );
-  useEffect(() => {
-    if (Song.shouldUpdateDb()) {
-      Song.populateDb();
-      //setSongs(Song.getAll());
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (Song.shouldUpdateDb()) {
+  //     Song.populateDb();
+  //     //setSongs(Song.getAll());
+  //   }
+  // }, []);
   // Default build in playlist from gasyTab
   useEffect(() => {
     if (Playlist.getByName('Kaiamba') == null) {
@@ -104,7 +104,7 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <CustomHeader
         title={t('playlists')}
         headerRight={
@@ -126,7 +126,7 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
         placeholder={t('playlist_name')}
       />
       <FlatList
-        contentContainerStyle={playlists.length <= 0 ? {flex: 1} : {}}
+        contentContainerStyle={playlists.length <= 0 ? { flex: 1 } : {}}
         data={playlists}
         ListEmptyComponent={
           <EmptyListMessage
@@ -135,7 +135,7 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
             buttonTitle={t('create_new_playlist').toUpperCase()}
           />
         }
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           return (
             <ListItem
               key={item.id!}
