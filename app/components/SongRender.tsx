@@ -137,7 +137,7 @@ html {
 `;
 const styles = `
 body {
-  font-family: monospace, Lucida Console, Courier;
+  font-family: Courier;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
    -khtml-user-select: none;
@@ -169,7 +169,7 @@ body {
   margin-left: 0px;
   position: relative;
   font-size: 14px;
-  font-family: monospace, Lucida Console, Courier;
+  font-family: Courier;
   white-space: pre-wrap;
   color: black;
 }
