@@ -1,16 +1,16 @@
-import React, { useState, useEffect, FunctionComponent, useContext } from "react";
-import { View, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import SongRender from "../components/SongRender";
-import SongTransformer from "../components/SongTransformer";
-import { getService } from "../services";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import React, {useState, useEffect, FunctionComponent, useContext} from 'react';
+import {View, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import SongRender from '../components/SongRender';
+import SongTransformer from '../components/SongTransformer';
+import {getService} from '../services';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ChordSheetJS from 'chordsheetjs';
-import { Artist, Song } from "../db";
-import { RootStackParamList } from "../AppNavigation";
-import LoadingIndicator from "../components/LoadingIndicator";
-import LanguageContext from "../languages/LanguageContext";
-import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp } from "@react-navigation/native";
+import {Artist, Song} from '../db';
+import {RootStackParamList} from '../AppNavigation';
+import LoadingIndicator from '../components/LoadingIndicator';
+import LanguageContext from '../languages/LanguageContext';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RouteProp} from '@react-navigation/native';
 
 type SongPreviewScreenRouteProp = RouteProp<RootStackParamList, 'SongPreview'>;
 type SongPreviewScreenNavigationProp = StackNavigationProp<
@@ -19,89 +19,101 @@ type SongPreviewScreenNavigationProp = StackNavigationProp<
 >;
 
 type Props = {
-  route: SongPreviewScreenRouteProp
+  route: SongPreviewScreenRouteProp;
   navigation: SongPreviewScreenNavigationProp;
-}
-const SongPreview: FunctionComponent<Props> = (props) => {
-  const [chordSheet, setChordCheet] = useState<string | null>(null)
-  const [isSaving, setIsSaving] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-  const { t } = useContext(LanguageContext)
-  let serviceName = props.route.params.serviceName
-  let path = props.route.params.path
+};
+const SongPreview: FunctionComponent<Props> = props => {
+  const [chordSheet_content, setChordCheet] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const {t} = useContext(LanguageContext);
+  let serviceName = props.route.params.serviceName;
+  let path = props.route.params.path;
+  let title = props.route.params.title;
+  let artist = props.route.params.artist;
+  let lyricist = props.route.params.lyricist;
+  let chordSheet = props.route.params.chordSheet;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let service = getService(serviceName)!
-        let chordPro = await service.getChordProSong(path)
-        setChordCheet(chordPro)
-        setIsLoading(false)
+        let service = getService(serviceName)!;
+        let chordPro = await service.getChordProSong(path);
+        if (chordSheet == 'true') {
+          const formatter = new ChordSheetJS.ChordProFormatter();
+          let chordSheetSong = new ChordSheetJS.ChordSheetParser({
+            preserveWhitespace: false,
+          }).parse(chordPro);
+          let header = '{title:' + title + '}\n';
+          header += '{artist:' + artist + '}\n';
+          header += '{lyricist:' + lyricist + '}\n';
+
+          chordPro = header + formatter.format(chordSheetSong);
+        }
+        setChordCheet(chordPro);
+        setIsLoading(false);
       } catch (e) {
         if (e instanceof Error) {
-          setError(e.message)
-          setIsLoading(false)
+          setError(e.message);
+          setIsLoading(false);
         } else {
-          throw e
+          throw e;
         }
       }
-    }
-    fetchData()
+    };
+    fetchData();
   }, []);
 
   function saveSong() {
-    if (isSaving) return
-    setIsSaving(true)
+    if (isSaving) return;
+    setIsSaving(true);
     const parser = new ChordSheetJS.ChordProParser();
-    const parsedSong = parser.parse(chordSheet!);
-    let artistName = parsedSong.getMetaData('artist')!
-    let songTitle = parsedSong.getMetaData('title')!
+    const parsedSong = parser.parse(chordSheet_content!);
+    let artistName = parsedSong.getMetaData('artist')!;
+    let songTitle = parsedSong.getMetaData('title')!;
+    let lyricist = parsedSong.getMetaData('lyricist')!;
 
-    let headerlessContent = chordSheet!
-    headerlessContent = headerlessContent.replace(/{artist:[^}]*}\n/g, '')
-    headerlessContent = headerlessContent.replace(/{title:[^}]*}\n/g, '')
-
-    let artist: Artist | undefined = Artist.getByName(artistName)
+    let headerlessContent = chordSheet_content!;
+    // headerlessContent = headerlessContent.replace(/{artist:[^}]*}\n/g, '');
+    // headerlessContent = headerlessContent.replace(/{title:[^}]*}\n/g, '');
+    // headerlessContent = headerlessContent.replace(/{lyricist:[^}]*}\n/g, '');
+    headerlessContent = headerlessContent.replace(/{title:(.*)}\n/g, '');
+    headerlessContent = headerlessContent.replace(/{artist:(.*)}\n/g, '');
+    headerlessContent = headerlessContent.replace(/{lyricist:(.*)}\n/g, '');
+    console.log(headerlessContent);
+    let artist: Artist | undefined = Artist.getByName(artistName);
     if (artist == null) {
-      artist = Artist.create(artistName)
+      artist = Artist.create(artistName);
     }
-    let song = Song.create(artist, songTitle, headerlessContent)
+    let song = Song.create(artist, songTitle, lyricist, headerlessContent);
 
-    props.navigation.replace('SongView', { id: song.id, title: song.title })
-    Alert.alert(t('info'), t('song_downloaded'))
+    props.navigation.replace('SongView', {
+      id: song.id,
+      title: song.title,
+    });
+    Alert.alert(t('info'), t('song_downloaded'));
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{flex: 1}}>
       <LoadingIndicator error={error} loading={isLoading} />
-      {chordSheet != null &&
-        <SongTransformer
-          transposeDelta={0}
-          chordProSong={chordSheet}
-        >
-          {({ chords, htmlSong }) => (
-            <View style={{ flex: 1 }}>
-              <SongRender
-                chordProContent={htmlSong}
-              />
-              <TouchableOpacity
-                style={styles.fabButton}
-                onPress={saveSong}>
-                <Icon
-                  color="white"
-                  size={30}
-                  name="download"
-                />
+      {chordSheet_content != null && (
+        <SongTransformer transposeDelta={0} chordProSong={chordSheet_content}>
+          {({chords, htmlSong}) => (
+            <View style={{flex: 1}}>
+              <SongRender chordProContent={htmlSong} />
+              <TouchableOpacity style={styles.fabButton} onPress={saveSong}>
+                <Icon color="white" size={30} name="download" />
               </TouchableOpacity>
             </View>
           )}
         </SongTransformer>
-      }
+      )}
     </View>
   );
-}
-export default SongPreview
+};
+export default SongPreview;
 
 const styles = StyleSheet.create({
   fabButton: {
@@ -110,7 +122,7 @@ const styles = StyleSheet.create({
     right: 10,
     borderRadius: 100,
     backgroundColor: 'tomato',
-    padding: 15
+    padding: 15,
   },
   item: {
     paddingTop: 20,
@@ -119,9 +131,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: '#eee',
     backgroundColor: 'white',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   itemTitle: {
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 });
