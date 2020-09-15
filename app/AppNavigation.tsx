@@ -78,10 +78,14 @@ const MainTab = () => {
         }}
         component={SongList}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="OnlineSearch"
-        options={{ title: t('online_search'), tabBarIcon: (props) => <TabBarIcon {...props} name="magnify" /> }}
-        component={OnlineSearch} /> */}
+        options={{
+          title: t('online_search'),
+          tabBarIcon: props => <TabBarIcon {...props} name="magnify" />,
+        }}
+        component={OnlineSearch}
+      />
       <Tab.Screen
         name="Settings"
         options={{
@@ -97,7 +101,14 @@ const MainTab = () => {
 export type RootStackParamList = {
   MainTab: undefined;
   OnlineArtistView: {serviceName: string; path: string; title: string};
-  SongPreview: {serviceName: string; path: string};
+  SongPreview: {
+    serviceName: string;
+    path: string;
+    title: string;
+    artist: string;
+    lyricist: string;
+    chordSheet: string;
+  };
   ArtistView: {id: string; title: string};
   SongView: {id: string; title: string};
   SongEdit: undefined | {id: string};
