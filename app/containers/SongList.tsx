@@ -73,7 +73,7 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
       let bundle = createBundle([], [id]);
       let bundleString = JSON.stringify(bundle);
       let path = await createFile(
-        'documents',
+        'downloads',
         'Hira' + '_' + title.toLowerCase() + '_' + lyricist,
         bundleString,
       );
