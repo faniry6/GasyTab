@@ -1,9 +1,9 @@
 {
-  "name": "open-chord-site",
+  "name": "gasytab-site",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://artutra.github.io/GasyTab",
+  "homepage": "https://faniry6.github.io/GasyTab",
   "scripts": {
     "deploy": "gh-pages -d dist"
   },
