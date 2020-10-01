@@ -1,59 +1,59 @@
-import React, { useState, useEffect, FunctionComponent } from "react";
-import { View, StyleSheet } from "react-native";
-import TouchableIcon from "./TouchableIcon";
+import React, {useState, useEffect, FunctionComponent} from 'react';
+import {View, StyleSheet} from 'react-native';
+import TouchableIcon from './TouchableIcon';
 import Slider from '@react-native-community/slider';
 
 interface AutoScrollSliderProps {
-  show: boolean
-  onClose: () => void
-  onValueChange: (value: number) => void
+  show: boolean;
+  onClose: () => void;
+  onValueChange: (value: number) => void;
 }
-const AutoScrollSlider: FunctionComponent<AutoScrollSliderProps> = (props) => {
-  let { show, onClose, onValueChange } = props
-  const [isActive, setIsActive] = useState(false)
-  const [sliderValue, setSliderValue] = useState(0.5)
+const AutoScrollSlider: FunctionComponent<AutoScrollSliderProps> = props => {
+  let {show, onClose, onValueChange} = props;
+  const [isActive, setIsActive] = useState(false);
+  const [sliderValue, setSliderValue] = useState(0.5);
 
   function onSliderValueChange(value: number) {
-    setSliderValue(value)
+    setSliderValue(value);
     if (isActive) {
-      onValueChange(sliderValue)
+      onValueChange(sliderValue);
     }
   }
 
   function play() {
-    setIsActive(true)
-    onValueChange(sliderValue)
+    setIsActive(true);
+    onValueChange(sliderValue);
   }
 
   function stop() {
-    setIsActive(false)
-    onValueChange(0)
+    setIsActive(false);
+    onValueChange(0);
   }
 
   useEffect(() => {
     if (show) {
-      setIsActive(true)
+      setIsActive(false);
     }
-  }, [show])
+  }, [show]);
 
   useEffect(() => {
     if (isActive) {
-      onSliderValueChange(sliderValue)
+      onSliderValueChange(sliderValue);
     }
-  }, [isActive])
+  }, [isActive]);
 
   if (!show) {
-    return null
+    return null;
   } else {
     return (
       <View style={styles.container}>
-        {
-          isActive ?
-            <TouchableIcon name="pause" onPress={stop} /> :
-            <TouchableIcon name="play" onPress={play} />
-        }
+        {isActive ? (
+          <TouchableIcon name="pause" onPress={stop} />
+        ) : (
+          <TouchableIcon name="play" onPress={play} />
+        )}
         <Slider
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           value={sliderValue}
           onValueChange={onSliderValueChange}
           onSlidingStart={onSliderValueChange}
@@ -61,18 +61,17 @@ const AutoScrollSlider: FunctionComponent<AutoScrollSliderProps> = (props) => {
           minimumValue={0}
           maximumValue={1}
         />
-        <TouchableIcon name="close" onPress={onClose} />
       </View>
-    )
+    );
   }
-}
-export default AutoScrollSlider
+};
+export default AutoScrollSlider;
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    height: 60,
-    backgroundColor: '#ccc'
-  }
+    height: 40,
+    backgroundColor: 'transparent',
+  },
 });
