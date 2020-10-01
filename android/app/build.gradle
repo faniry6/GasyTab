@@ -133,8 +133,8 @@ android {
         applicationId "com.gasytab"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 13
-        versionName "0.5.2"
+        versionCode 14
+        versionName "0.5.3"
     }
     splits {
         abi {
