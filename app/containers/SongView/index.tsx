@@ -153,11 +153,25 @@ const SongView: FunctionComponent<Props> = props => {
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.flexRow}>
-          <TouchableIcon onPress={editSong} name="pencil" />
+          <TouchableHighlight
+            underlayColor="#ccc"
+            onPress={() => {
+              setIsSideMenuOpen(false);
+              setShowPlaylistSelection(!showPlaylistSelection);
+            }}>
+            <TouchableIcon
+              onPress={() => {
+                setIsSideMenuOpen(false);
+                setShowPlaylistSelection(!showPlaylistSelection);
+              }}
+              name="playlist-plus"
+            />
+          </TouchableHighlight>
           <TouchableIcon onPress={openSideMenu} name="settings" />
         </View>
       ),
     });
+    setShowAutoScrollSlider(true);
   }, [navigation, isSideMenuOpen]);
 
   return (
@@ -197,17 +211,6 @@ const SongView: FunctionComponent<Props> = props => {
         <Divider />
         <TouchableHighlight
           underlayColor="#ccc"
-          onPress={() => {
-            setShowPageTurner(false);
-            setIsSideMenuOpen(false);
-            setShowAutoScrollSlider(true);
-          }}
-          style={styles.tool}>
-          <Text style={styles.toolLabel}>{t('auto_scroll')}</Text>
-        </TouchableHighlight>
-        <Divider />
-        <TouchableHighlight
-          underlayColor="#ccc"
           onPress={() => onChangeShowTabs(!showTabs)}>
           <View style={styles.tool}>
             <Text style={styles.toolLabel}>{t('show_tabs')}</Text>
@@ -224,6 +227,8 @@ const SongView: FunctionComponent<Props> = props => {
           </View>
         </TouchableHighlight>
         <Divider />
+
+        <Divider />
         <TouchableHighlight
           underlayColor="#ccc"
           onPress={() => {
@@ -231,15 +236,8 @@ const SongView: FunctionComponent<Props> = props => {
             setShowPlaylistSelection(!showPlaylistSelection);
           }}>
           <View style={styles.tool}>
-            <Text style={styles.toolLabel}>{t('add_to_playlist')}</Text>
-            <TouchableIcon
-              onPress={() => {
-                setIsSideMenuOpen(false);
-                setShowPlaylistSelection(!showPlaylistSelection);
-              }}
-              size={25}
-              name="playlist-plus"
-            />
+            <Text style={styles.toolLabel}>{t('edit')}</Text>
+            <TouchableIcon onPress={editSong} size={25} name="pencil" />
           </View>
         </TouchableHighlight>
       </SideMenu>
