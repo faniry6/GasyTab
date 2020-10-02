@@ -57,12 +57,12 @@ const SongRender: RefForwardingComponent<SongRenderRef, Props> = (
     } else {
       run = `
       function pageScroll(){
-        window.scrollBy(0,1);
+        window.scrollBy(0,0.4);
       }
       if(window.intervalId) {
         clearInterval(window.intervalId);
       }
-      window.intervalId = setInterval(pageScroll, ${(1 - scrollSpeed) * 200 +
+      window.intervalId = setInterval(pageScroll, ${(1 - scrollSpeed) * 70 +
         10});
       true;
       `;
@@ -87,7 +87,11 @@ const SongRender: RefForwardingComponent<SongRenderRef, Props> = (
       ref={webRef}
       startInLoadingState={true}
       overScrollMode={'never'}
-      source={{html: renderHtml(props.chordProContent, htmlStyles)}}
+      originWhitelist={['*']}
+      source={{
+        html: renderHtml(props.chordProContent, htmlStyles),
+        baseUrl: '',
+      }}
       injectedJavaScript={onClickChordPostMessage}
       onMessage={onReceiveMessage}
     />
@@ -135,9 +139,14 @@ html {
   scroll-behavior: smooth;
 }
 `;
+
 const styles = `
+@font-face {
+  font-family: "Anonymous.ttf";
+  src: local("Anonymous"), url("file:///android_asset/fonts/Anonymous.ttf") format("truetype");
+}
 body {
-  font-family: monospace, Lucida Console, Courier;
+  font-family: monospace;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
    -khtml-user-select: none;
@@ -169,7 +178,7 @@ body {
   margin-left: 0px;
   position: relative;
   font-size: 14px;
-  font-family: monospace, Lucida Console, Courier;
+  font-family: monospace, Courier;
   white-space: pre-wrap;
   color: black;
 }

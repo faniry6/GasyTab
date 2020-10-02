@@ -30,11 +30,11 @@ const AutoScrollSlider: FunctionComponent<AutoScrollSliderProps> = props => {
     onValueChange(0);
   }
 
-  useEffect(() => {
-    if (show) {
-      setIsActive(false);
-    }
-  }, [show]);
+  // useEffect(() => {
+  //   if (show) {
+  //     setIsActive(false);
+  //   }
+  // }, [show]);
 
   useEffect(() => {
     if (isActive) {
@@ -72,6 +72,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 40,
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
   },
 });

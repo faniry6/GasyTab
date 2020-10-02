@@ -1,8 +1,8 @@
 import uuid from 'uuid';
-import { Artist } from './Artist';
-//import allSongs from '../assets/chordpro/songs.json';
+import {Artist} from './Artist';
+import allSongs from '../assets/chordpro/songs.json';
 import ChordSheetJS from 'chordsheetjs';
-import { SongBundle } from './bundler';
+import {SongBundle} from './bundler';
 import realm from '.';
 
 export class Song {
@@ -26,7 +26,7 @@ export class Song {
       transposeAmount: 'int?',
       fontSize: 'int?',
       showTablature: 'bool?',
-      artist: { type: 'Artist' },
+      artist: {type: 'Artist'},
       updated_at: 'date',
       lyricist: 'string',
     },
@@ -45,34 +45,34 @@ export class Song {
       .filtered('artist.id = $0', artistId)
       .sorted('title');
   }
-  static getByCategory(id: string) { }
-  // static shouldUpdateDb() {
-  //   let s = this.getAll().find(() => true);
-  //   let newSongsDate = new Date(allSongs.updated_at);
-  //   if (s == null) return true;
-  //   else return newSongsDate > s.updated_at;
-  // }
-  // static populateDb() {
-  //   if (this.shouldUpdateDb()) {
-  //     for (var i = 0; i < allSongs.data.length; i++) {
-  //       let s: string = allSongs.data[i];
-  //       const parser = new ChordSheetJS.ChordProParser();
-  //       const formatter = new ChordSheetJS.ChordProFormatter();
-  //       const parsedSong = parser.parse(s);
-  //       let artistName = parsedSong.getMetaData('artist')!;
-  //       let songTitle = parsedSong.getMetaData('title')!;
-  //       let lyricist = parsedSong.getMetaData('lyricist')!;
-  //       let songContent = formatter.format(parsedSong);
+  static getByCategory(id: string) {}
+  static shouldUpdateDb() {
+    let s = this.getAll().find(() => true);
+    let newSongsDate = new Date(allSongs.updated_at);
+    if (s == null) return true;
+    else return newSongsDate > s.updated_at;
+  }
+  static populateDb() {
+    if (this.shouldUpdateDb()) {
+      for (var i = 0; i < allSongs.data.length; i++) {
+        let s: string = allSongs.data[i];
+        const parser = new ChordSheetJS.ChordProParser();
+        const formatter = new ChordSheetJS.ChordProFormatter();
+        const parsedSong = parser.parse(s);
+        let artistName = parsedSong.getMetaData('artist')!;
+        let songTitle = parsedSong.getMetaData('title')!;
+        let lyricist = parsedSong.getMetaData('lyricist')!;
+        let songContent = formatter.format(parsedSong);
 
-  //       let artist: Artist | undefined = Artist.getByName(artistName);
-  //       if (artist == null) {
-  //         artist = Artist.create(artistName);
-  //       }
-  //       // let artist = Artist.create(artistName)
-  //       Song.create(artist, songTitle, lyricist, songContent);
-  //     }
-  //   }
-  // }
+        let artist: Artist | undefined = Artist.getByName(artistName);
+        if (artist == null) {
+          artist = Artist.create(artistName);
+        }
+        // let artist = Artist.create(artistName)
+        Song.create(artist, songTitle, lyricist, songContent);
+      }
+    }
+  }
 
   static getAll() {
     return realm.objects<Song>('Song').sorted('title');
