@@ -12,7 +12,7 @@ import {MainTabParamList, RootStackParamList} from '../../AppNavigation';
 import TouchableIcon from '../../components/TouchableIcon';
 import EmptyListMessage from '../../components/EmptyListMessage';
 import TextInputModal from '../../components/TextInputModal';
-import {createBundle} from '../../db/bundler';
+import {createBundle, importBundle, decodeJsonBundle} from '../../db/bundler';
 import createFile from '../../utils/createFile';
 import Share from 'react-native-share';
 import LanguageContext from '../../languages/LanguageContext';
@@ -26,6 +26,9 @@ import CustomHeader from '../../components/CustomHeader';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {alertDelete} from '../../utils/alertDelete';
 import {Song} from '../../db';
+
+import kaiamba from '../../assets/chordpro/kaiamba.json';
+import evanjelika from '../../assets/chordpro/evanjelika.json';
 
 type PlaylistListScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList, 'PlaylistList'>,
@@ -71,24 +74,31 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
       setPlaylists(Playlist.getAll());
     }, []),
   );
+  // useEffect(() => {
+  //   if (Song.shouldUpdateDb()) {
+  //     Song.populateDb();
+  //     //setSongs(Song.getAll());
+  //   }
+  // }, []);
   useEffect(() => {
+    // Importing kaiamba playlist
     if (Song.shouldUpdateDb()) {
-      Song.populateDb();
-      //setSongs(Song.getAll());
+      importBundle(kaiamba);
+      importBundle(evanjelika);
     }
   }, []);
   // Default build in playlist from gasyTab
-  useEffect(() => {
-    if (Playlist.getByName('Kaiamba') == null) {
-      onSubmit('Kaiamba');
-      let kaiamba = Playlist.getByName('Kaiamba');
-      let kaiamba_song = Song.getAll();
-      // Add it to the kaiamba playlist
-      {
-        kaiamba_song.map(song => Playlist.addSong(kaiamba!, song));
-      }
-    }
-  }, [playlists]);
+  // useEffect(() => {
+  //   if (Playlist.getByName('Kaiamba') == null) {
+  //     onSubmit('Kaiamba');
+  //     let kaiamba = Playlist.getByName('Kaiamba');
+  //     let kaiamba_song = Song.getAll();
+  //     // Add it to the kaiamba playlist
+  //     {
+  //       kaiamba_song.map(song => Playlist.addSong(kaiamba!, song));
+  //     }
+  //   }
+  // }, [playlists]);
   function onSubmit(playlistName: string) {
     try {
       Playlist.create(playlistName);

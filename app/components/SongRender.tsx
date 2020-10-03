@@ -57,12 +57,12 @@ const SongRender: RefForwardingComponent<SongRenderRef, Props> = (
     } else {
       run = `
       function pageScroll(){
-        window.scrollBy(0,0.4);
+        window.scrollBy(0,1);
       }
       if(window.intervalId) {
         clearInterval(window.intervalId);
       }
-      window.intervalId = setInterval(pageScroll, ${(1 - scrollSpeed) * 70 +
+      window.intervalId = setInterval(pageScroll, ${(1 - scrollSpeed) * 200 +
         10});
       true;
       `;

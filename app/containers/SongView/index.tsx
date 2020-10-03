@@ -227,14 +227,8 @@ const SongView: FunctionComponent<Props> = props => {
           </View>
         </TouchableHighlight>
         <Divider />
-
         <Divider />
-        <TouchableHighlight
-          underlayColor="#ccc"
-          onPress={() => {
-            setIsSideMenuOpen(false);
-            setShowPlaylistSelection(!showPlaylistSelection);
-          }}>
+        <TouchableHighlight underlayColor="#ccc" onPress={() => editSong()}>
           <View style={styles.tool}>
             <Text style={styles.toolLabel}>{t('edit')}</Text>
             <TouchableIcon onPress={editSong} size={25} name="pencil" />

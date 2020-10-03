@@ -76,12 +76,12 @@ export function importBundle(bundle: DatabaseBundle): void {
     let songDb = Song.getById(bundleSong.id);
     if (songDb) {
       mapExistingSongs[bundleSong.id] = songDb.id;
-      if (songDb.updated_at < new Date(bundleSong.updated_at)) {
+      if (songDb.updated_at <= new Date(bundleSong.updated_at)) {
         Song.update(
           songDb.id,
           artistDb,
-          songDb.lyricist,
           bundleSong.title,
+          songDb.lyricist,
           bundleSong.content,
         );
       }

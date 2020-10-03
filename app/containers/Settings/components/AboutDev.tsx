@@ -24,7 +24,7 @@ const AboutDev = () => {
     <View style={styles.container}>
       <Text style={styles.lightGray}>{t('developed_by')} </Text>
       <TouchableOpacity onPress={goToWebURL} style={styles.devButton}>
-        <Text style={styles.primaryColor}>{'GasyTab'}</Text>
+        <Text style={styles.primaryColor}>{'Ra Faniry'}</Text>
       </TouchableOpacity>
       <Text style={styles.lightGray}>{' fork us at '}</Text>
       <TouchableOpacity onPress={goToDevURL} style={styles.devButton}>

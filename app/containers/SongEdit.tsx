@@ -24,6 +24,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const [artist, setArtist] = useState("")
   const [content, setContent] = useState("")
   const [lyricist, setLyricist] = useState("")
+  const [changeLyricist, setChangeLyricist] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [mode, setMode] = useState<'CHORD_PRO' | 'CHORD_SHEET'>('CHORD_PRO')
   const { t } = useContext(LanguageContext)
@@ -44,6 +45,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
       setArtist(song.artist.name)
       setLyricist(song.lyricist)
       setContent(removeMetaTags(song.content))
+      setChangeLyricist(false)
     }
   }, [])
 
@@ -131,6 +133,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
         <TextInput
           style={styles.input}
           placeholder={t('lyricist_name')}
+          editable= {changeLyricist}
           autoFocus={false}
           autoCorrect={false}
           autoCapitalize='words'
