@@ -3,6 +3,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {View, Text, TouchableOpacity, Linking, StyleSheet} from 'react-native';
 import LanguageContext from '../../../languages/LanguageContext';
 
+const version = '0.5.4';
 const AboutDev = () => {
   const {t} = useContext(LanguageContext);
 
@@ -26,7 +27,7 @@ const AboutDev = () => {
       <TouchableOpacity onPress={goToWebURL} style={styles.devButton}>
         <Text style={styles.primaryColor}>{'Ra Faniry'}</Text>
       </TouchableOpacity>
-      <Text style={styles.lightGray}>{' fork us at '}</Text>
+      <Text style={styles.lightGray}>{', v.' + version + ', fork us at '}</Text>
       <TouchableOpacity onPress={goToDevURL} style={styles.devButton}>
         <Text style={styles.primaryColor}>GitHub</Text>
       </TouchableOpacity>

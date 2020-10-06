@@ -74,31 +74,16 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
       setPlaylists(Playlist.getAll());
     }, []),
   );
-  // useEffect(() => {
-  //   if (Song.shouldUpdateDb()) {
-  //     Song.populateDb();
-  //     //setSongs(Song.getAll());
-  //   }
-  // }, []);
+
+  // Default build in playlist from gasyTab
   useEffect(() => {
-    // Importing kaiamba playlist
-    if (Song.shouldUpdateDb()) {
+    if (Playlist.getByName('Kaiamba') == null) {
       importBundle(kaiamba);
+    }
+    if (Playlist.getByName('Evanjelika Vol.1') == null) {
       importBundle(evanjelika);
     }
-  }, []);
-  // Default build in playlist from gasyTab
-  // useEffect(() => {
-  //   if (Playlist.getByName('Kaiamba') == null) {
-  //     onSubmit('Kaiamba');
-  //     let kaiamba = Playlist.getByName('Kaiamba');
-  //     let kaiamba_song = Song.getAll();
-  //     // Add it to the kaiamba playlist
-  //     {
-  //       kaiamba_song.map(song => Playlist.addSong(kaiamba!, song));
-  //     }
-  //   }
-  // }, [playlists]);
+  }, [playlists]);
   function onSubmit(playlistName: string) {
     try {
       Playlist.create(playlistName);
