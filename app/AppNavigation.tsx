@@ -78,14 +78,15 @@ const MainTab = () => {
         }}
         component={SongList}
       />
-      {/* <Tab.Screen
+      <Tab.Screen
         name="OnlineSearch"
         options={{
           title: t('online_search'),
           tabBarIcon: props => <TabBarIcon {...props} name="magnify" />,
         }}
         component={OnlineSearch}
-      /> */}
+      />
+
       <Tab.Screen
         name="Settings"
         options={{
