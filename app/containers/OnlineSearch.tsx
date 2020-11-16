@@ -12,6 +12,8 @@ import {
   Keyboard,
   StatusBar,
   Platform,
+  View,
+  Picker,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import ListItem from '../components/ListItem';
@@ -38,7 +40,8 @@ type Props = {
 
 const OnlineSearch: FunctionComponent<Props> = props => {
   const searchInput = useRef<TextInput>(null);
-  const [serviceName] = useState(services[0].name);
+  const [baseServices] = useState(services);
+  const [serviceName, setServiceName] = useState(services[0].name);
   const [docs, setDocs] = useState<Doc[] | null>(null);
   const [query, setQuery] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -97,6 +100,7 @@ const OnlineSearch: FunctionComponent<Props> = props => {
   }
   return (
     <SafeAreaView style={styles.container}>
+      {/*   */}
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <SearchBar
         inputRef={searchInput}
@@ -162,6 +166,11 @@ const styles = StyleSheet.create({
   msgInfo: {
     textAlign: 'center',
     color: '#aaa',
+  },
+  customHeader: {
+    backgroundColor: 'white',
+    elevation: 4,
+    justifyContent: 'center',
   },
   picker: {
     marginHorizontal: 10,

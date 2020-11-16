@@ -7,6 +7,8 @@ import SongView from './containers/SongView';
 import SongList from './containers/SongList';
 import TabBarIcon from './components/TabBarIcon';
 import OnlineSearch from './containers/OnlineSearch';
+import ServiceView from './containers/ServiceView';
+import ServiceList from './containers/ServiceList';
 import SongPreview from './containers/SongPreview';
 import OnlineArtistView from './containers/OnlineArtistView';
 import SongEdit from './containers/SongEdit';
@@ -44,6 +46,7 @@ export type MainTabParamList = {
   PlaylistList: undefined;
   ArtistList: undefined;
   SongList: undefined;
+  ServiceList: undefined;
   OnlineSearch: undefined;
   Settings: undefined;
 };
@@ -78,15 +81,22 @@ const MainTab = () => {
         }}
         component={SongList}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="OnlineSearch"
         options={{
           title: t('online_search'),
           tabBarIcon: props => <TabBarIcon {...props} name="magnify" />,
         }}
         component={OnlineSearch}
+      /> */}
+      <Tab.Screen
+        name="ServiceList"
+        options={{
+          title: 'Service',
+          tabBarIcon: props => <TabBarIcon {...props} name="magnify" />,
+        }}
+        component={ServiceList}
       />
-
       <Tab.Screen
         name="Settings"
         options={{
@@ -116,6 +126,8 @@ export type RootStackParamList = {
   PlaylistView: {id: string; title: string};
   PlaylistAddSongs: {id: string};
   PlaylistEdit: {id: string};
+  ServiceView: {name: string};
+  OnlineSearch: undefined;
 };
 const RootStack = createStackNavigator<RootStackParamList>();
 const AppNavigation = () => {
@@ -163,6 +175,12 @@ const AppNavigation = () => {
         component={PlaylistEdit}
         options={{headerShown: false}}
       />
+      <RootStack.Screen
+        name="ServiceView"
+        component={ServiceView}
+        options={({route}) => ({title: route.params.name})}
+      />
+      <RootStack.Screen name="OnlineSearch" component={OnlineSearch} />
     </RootStack.Navigator>
   );
 };

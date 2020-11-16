@@ -112,6 +112,7 @@ const SongView: FunctionComponent<Props> = props => {
   function editSong() {
     props.navigation.replace('SongEdit', {id: songId});
   }
+  function uploadSong() {}
   function showTone(tone: number) {
     if (tone === 0) return null;
     if (tone > 0) return '+' + tone;
@@ -232,6 +233,13 @@ const SongView: FunctionComponent<Props> = props => {
           <View style={styles.tool}>
             <Text style={styles.toolLabel}>{t('edit')}</Text>
             <TouchableIcon onPress={editSong} size={25} name="pencil" />
+          </View>
+        </TouchableHighlight>
+        <Divider />
+        <TouchableHighlight underlayColor="#ccc" onPress={() => uploadSong()}>
+          <View style={styles.tool}>
+            <Text style={styles.toolLabel}>Upload to GasyTab</Text>
+            <TouchableIcon onPress={uploadSong} size={25} name="upload" />
           </View>
         </TouchableHighlight>
       </SideMenu>
