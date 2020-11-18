@@ -1,18 +1,20 @@
-import React, { FunctionComponent } from "react";
-import { Text, View, TouchableOpacity, StyleSheet, Modal } from "react-native";
+import React, {FunctionComponent} from 'react';
+import {Text, View, TouchableOpacity, StyleSheet, Modal} from 'react-native';
+import TouchableIcon from '../components/TouchableIcon';
 
 export interface Option {
-  title: string
-  onPress: () => void
+  title: string;
+  icon: string;
+  onPress: () => void;
 }
 interface OptionsMenuProps {
-  enabled: boolean
-  options: Option[]
-  onDismiss: () => void
+  enabled: boolean;
+  options: Option[];
+  onDismiss: () => void;
 }
-const OptionsMenu: FunctionComponent<OptionsMenuProps> = (props) => {
-  let { enabled, onDismiss, options } = props
-  if (!enabled) return null
+const OptionsMenu: FunctionComponent<OptionsMenuProps> = props => {
+  let {enabled, onDismiss, options} = props;
+  if (!enabled) return null;
   return (
     <Modal transparent onDismiss={onDismiss}>
       <View style={styles.backgroundOverlayer}>
@@ -24,38 +26,49 @@ const OptionsMenu: FunctionComponent<OptionsMenuProps> = (props) => {
                 key={option.title}
                 style={styles.optionItem}
                 onPress={() => {
-                  onDismiss()
-                  option.onPress()
+                  onDismiss();
+                  option.onPress();
                 }}>
-                <Text style={styles.optionTitle}>{option.title}</Text>
+                <View style={styles.tool}>
+                  <TouchableIcon size={25} name={option.icon} />
+                  <Text style={styles.optionTitle}>{option.title}</Text>
+                </View>
               </TouchableOpacity>
-            )
+            );
           })}
         </View>
       </View>
     </Modal>
   );
-}
-export default OptionsMenu
+};
+export default OptionsMenu;
 
 const styles = StyleSheet.create({
   backgroundOverlayer: {
     backgroundColor: '#00000040',
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   outsideContainer: {
-    flex: 1
+    flex: 1,
   },
   container: {
-    backgroundColor: 'white'
+    flexDirection: 'column',
+    backgroundColor: 'white',
   },
   optionItem: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   optionTitle: {
     paddingVertical: 20,
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
+  tool: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 14,
+    //paddingVertical: 0,
+  },
 });

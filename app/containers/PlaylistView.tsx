@@ -138,10 +138,6 @@ const PlaylistView: FunctionComponent<Props> = (props: Props) => {
             title={item.title}
             subtitle={item.artist.name}
             onPress={() => onSelectSong(item.id!, item.title)}
-            options={[
-              { title: t('edit'), onPress: () => onPressEditSong(item.id!) },
-              { title: t('delete'), onPress: () => onPressDeleteSong(item.id!) }
-            ]}
           />
         }}
       />

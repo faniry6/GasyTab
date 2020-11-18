@@ -105,10 +105,12 @@ const ArtistList = (props: Props) => {
               options={[
                 {
                   title: t('edit'),
+                  icon: 'pencil',
                   onPress: () => onPressEditArtist(item.id, item.name),
                 },
                 {
                   title: t('delete'),
+                  icon: 'delete',
                   onPress: () => onPressDeleteArtist(item.id!),
                 },
               ]}

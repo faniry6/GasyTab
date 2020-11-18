@@ -73,7 +73,7 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
       let bundle = createBundle([], [id]);
       let bundleString = JSON.stringify(bundle);
       let path = await createFile(
-        'downloads',
+        'documents',
         'Hira' + '_' + title.toLowerCase() + '_' + lyricist,
         bundleString,
       );
@@ -150,16 +150,23 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
               options={[
                 {
                   title: t('go_to_artist'),
+                  icon: 'artist',
                   onPress: () => onPressGoToArtist(item.id!),
                 },
-                {title: t('edit'), onPress: () => onPressEditSong(item.id!)},
+                {
+                  title: t('edit'),
+                  icon: 'pencil',
+                  onPress: () => onPressEditSong(item.id!),
+                },
                 {
                   title: t('share'),
+                  icon: 'share',
                   onPress: () =>
                     onPressShare(item.id!, item.title, item.lyricist),
                 },
                 {
                   title: t('delete'),
+                  icon: 'delete',
                   onPress: () => onPressDeleteSong(item.id!),
                 },
               ]}
