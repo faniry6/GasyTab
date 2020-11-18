@@ -89,14 +89,7 @@ const MainTab = () => {
         }}
         component={OnlineSearch}
       /> */}
-      <Tab.Screen
-        name="ServiceList"
-        options={{
-          title: 'Service',
-          tabBarIcon: props => <TabBarIcon {...props} name="magnify" />,
-        }}
-        component={ServiceList}
-      />
+
       <Tab.Screen
         name="Settings"
         options={{

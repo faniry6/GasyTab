@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FunctionComponent, useContext, useLayoutEffect } from "react";
+import React, { useState, useEffect, useCallback, FunctionComponent, useContext, useLayoutEffect } from "react";
 import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from "react-native";
 import { Song, Artist } from '../db'
 import TouchableIcon from "../components/TouchableIcon";
@@ -7,7 +7,7 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { RootStackParamList } from "../AppNavigation";
 import LanguageContext from "../languages/LanguageContext";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useFocusEffect } from "@react-navigation/native";
 
 type SongEditScreenRouteProp = RouteProp<RootStackParamList, 'SongEdit'>
 type SongEditScreenNavigationProp = StackNavigationProp<
@@ -158,7 +158,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
           placeholder={contentPlaceholder}
           numberOfLines={4}
           placeholderTextColor="#aaa"
-          multiline
+          multiline={true}
           autoFocus={false}
           autoCorrect={false}
           autoCapitalize='sentences'
@@ -201,11 +201,13 @@ const styles = StyleSheet.create({
   content: {
     fontFamily: Platform.OS === 'ios' ? 'Courier' : 'monospace',
     flex: 1,
-    minHeight: 200,
+    minHeight: 300,
+    height: 300,
     padding: 10,
     backgroundColor: '#eee',
     borderBottomLeftRadius: 3,
     borderBottomRightRadius: 3,
+    textAlignVertical: 'top'
   },
   sideMenuContainer: {
     backgroundColor: '#eee',
