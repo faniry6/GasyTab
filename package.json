@@ -1,7 +1,6 @@
 {
   "name": "GasyTab",
   "version": "0.5.4",
-
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -16,15 +15,15 @@
   "dependencies": {
     "@artutra/ts-data-json": "^1.1.0",
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-native-community/slider": "^2.0.2",
+    "@react-native-community/slider": "3.0.3",
     "@react-navigation/bottom-tabs": "^5.5.2",
     "@react-navigation/native": "^5.5.1",
     "@react-navigation/stack": "^5.5.1",
     "axios": "^0.19.2",
     "chordjs": "^1.1.1",
     "chordsheetjs": "^2.9.1",
-    "react": "16.8.6",
-    "react-native": "0.60.5",
+    "react": "17.0.1",
+    "react-native": "0.63.3",
     "react-native-cheerio": "^1.0.0-rc.4",
     "react-native-document-picker": "^3.4.0",
     "react-native-draggable-flatlist": "^1.1.9",
