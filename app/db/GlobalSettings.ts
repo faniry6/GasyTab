@@ -4,12 +4,14 @@ import {LanguageID} from '../languages/translations';
 const DEFAULTS: GlobalSettings = {
   language: 'mg_md',
   fontSize: 14,
+  fontType: 'monospace',
   showTablature: true,
   enablePageTurner: false,
 };
 export class GlobalSettings {
   language!: LanguageID;
   fontSize!: number;
+  fontType!: string;
   showTablature!: boolean;
   enablePageTurner!: boolean;
 
@@ -18,8 +20,15 @@ export class GlobalSettings {
     properties: {
       language: {type: 'string', default: DEFAULTS.language},
       fontSize: {type: 'int', default: DEFAULTS.fontSize},
-      showTablature: {type: 'bool', default: DEFAULTS.showTablature},
-      enablePageTurner: {type: 'bool', default: DEFAULTS.enablePageTurner},
+      fontType: {type: 'string', default: DEFAULTS.fontType},
+      showTablature: {
+        type: 'bool',
+        default: DEFAULTS.showTablature,
+      },
+      enablePageTurner: {
+        type: 'bool',
+        default: DEFAULTS.enablePageTurner,
+      },
     },
   };
 
@@ -48,6 +57,13 @@ export class GlobalSettings {
     let globalSettings = this.get();
     realm.write(() => {
       globalSettings.fontSize = fontSize;
+    });
+  }
+
+  static setFontType(fontType: string) {
+    let globalSettings = this.get();
+    realm.write(() => {
+      globalSettings.fontType = fontType;
     });
   }
 

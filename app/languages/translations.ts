@@ -72,6 +72,9 @@ export const sentences = [
   'you_can_still_create_songs_manually',
   'create_song',
   'invalid_lyricist',
+  'this_is_work_in_progress',
+  'not_sharable_song',
+  'not_sharable_playlist',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -157,6 +160,10 @@ const translations: Languages = {
     you_can_still_create_songs_manually: 'You can still create songs manually',
     create_song: 'Create song',
     invalid_lyricist: 'Invalid lyricist',
+    this_is_work_in_progress: 'This is a work in progress',
+    not_sharable_song: 'This file belongs to GasyTab, sharing is prohibited',
+    not_sharable_playlist:
+      'Your playlist contains a GasyTab song, please remove it then share again',
   },
   // pt_br: {
   //   language_name: 'Português (Brasil)',
@@ -315,6 +322,9 @@ const translations: Languages = {
     you_can_still_create_songs_manually: 'Afaka manamboatra eto enao',
     create_song: 'Hira vaovao',
     invalid_lyricist: 'Tsy manakery mpampiditra',
+    this_is_work_in_progress: 'Hoavy tsy ho ela',
+    not_sharable_song: "Ny hira nataon'ny GasyTab dia tsy afaka zaraina",
+    not_sharable_playlist: "Misy akoron'ny GasyTab ao amin'ny lisitranao",
   },
 };
 export default translations;

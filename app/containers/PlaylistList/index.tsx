@@ -5,7 +5,7 @@ import React, {
   useContext,
   useCallback,
 } from 'react';
-import {FlatList} from 'react-native';
+import {FlatList, Alert} from 'react-native';
 import ListItem from '../../components/ListItem';
 import {Playlist} from '../../db/Playlist';
 import {MainTabParamList, RootStackParamList} from '../../AppNavigation';
@@ -52,6 +52,15 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
     });
   }
   async function onPressShare(id: string, name: string) {
+    let p = Playlist.getById(id);
+    if (!p) throw new Error('Invalid playlist id');
+    for (var s in p.songs) {
+      let song = p.songs[s];
+      //TODO: Do not allow sharing if the file belongs to GasyTab
+      if (song.lyricist.toUpperCase() == 'GASYTAB')
+        Alert.alert('Tsy mety', t('not_sharable_playlist'));
+      return;
+    }
     try {
       let bundle = createBundle([id], []);
       let bundleString = JSON.stringify(bundle);
@@ -139,10 +148,12 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
               options={[
                 {
                   title: t('share'),
+                  icon: 'share',
                   onPress: () => onPressShare(item.id, item.name),
                 },
                 {
                   title: t('delete'),
+                  icon: 'delete',
                   onPress: () => onPressDeletePlaylist(item.id!),
                 },
               ]}

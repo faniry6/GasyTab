@@ -7,7 +7,14 @@ import React, {
   useLayoutEffect,
   FC,
 } from 'react';
-import {Text, View, StyleSheet, Switch, TouchableHighlight} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Switch,
+  TouchableHighlight,
+  Alert,
+} from 'react-native';
 import {Song} from '../../db';
 import SideMenu from './components/SideMenu';
 import SongRender, {SongRenderRef} from '../../components/SongRender';
@@ -29,6 +36,9 @@ import {
 import clamp from '../../utils/clamp';
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {createBundle} from '../../db/bundler';
+import createFile from '../../utils/createFile';
+import Share from 'react-native-share';
 
 type SongViewScreenRouteProp = RouteProp<RootStackParamList, 'SongView'>;
 type SongViewScreenNavigationProp = StackNavigationProp<
@@ -112,7 +122,9 @@ const SongView: FunctionComponent<Props> = props => {
   function editSong() {
     props.navigation.replace('SongEdit', {id: songId});
   }
-  function uploadSong() {}
+  function uploadSong() {
+    Alert.alert('Info', t('this_is_work_in_progress'));
+  }
   function showTone(tone: number) {
     if (tone === 0) return null;
     if (tone > 0) return '+' + tone;
@@ -131,6 +143,31 @@ const SongView: FunctionComponent<Props> = props => {
       setScrollSpeed(0);
     }
     setShowPageTurner(value);
+  }
+
+  async function onPressShare() {
+    let song = Song.getById(songId)!;
+    let title = song.title;
+    let lyricist = song.lyricist;
+    if (song.lyricist.toUpperCase() == 'GASYTAB') {
+      Alert.alert('Tsy mety', t('not_sharable_song'));
+      return;
+    }
+    try {
+      let bundle = createBundle([], [songId]);
+      let bundleString = JSON.stringify(bundle);
+      let path = await createFile(
+        'documents',
+        'Hira' + '_' + title.toLowerCase() + '_' + lyricist,
+        bundleString,
+      );
+      await Share.open({
+        url: 'file://' + path,
+        message: t('share_message'),
+      });
+    } catch (e) {
+      console.warn(e.message);
+    }
   }
 
   useEffect(() => {
@@ -154,6 +191,7 @@ const SongView: FunctionComponent<Props> = props => {
     navigation.setOptions({
       headerRight: () => (
         <View style={styles.flexRow}>
+          <TouchableIcon onPress={onPressShare} name="share" />
           <TouchableHighlight
             underlayColor="#ccc"
             onPress={() => {
@@ -257,6 +295,7 @@ const SongView: FunctionComponent<Props> = props => {
                 onClickChord(songProps.chords, chordString)
               }
               chordProContent={songProps.htmlSong}
+              fontType={GlobalSettings.get().fontType}
               scrollSpeed={scrollSpeed}
             />
             <ChordTab

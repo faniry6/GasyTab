@@ -150,7 +150,7 @@ const AppNavigation = () => {
       <RootStack.Screen
         name="SongView"
         component={SongView}
-        options={({route}) => ({title: route.params.title})}
+        options={({route}) => ({title: ' '})}
       />
       <RootStack.Screen name="SongEdit" component={SongEdit} />
       <RootStack.Screen

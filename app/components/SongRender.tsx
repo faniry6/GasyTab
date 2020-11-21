@@ -15,6 +15,7 @@ interface Props {
   onPressChord?: (chord: string) => void;
   onPressArtist?: () => void;
   scrollSpeed?: number;
+  fontType: string;
 }
 
 export interface SongRenderRef {
@@ -81,7 +82,10 @@ const SongRender: RefForwardingComponent<SongRenderRef, Props> = (
     }
   }
 
-  let htmlStyles = scrollSpeed > 0 ? styles : smoothScrollStyle + styles;
+  let htmlStyles =
+    scrollSpeed > 0
+      ? styles(props.fontType)
+      : smoothScrollStyle + styles(props.fontType);
   return (
     <WebView
       ref={webRef}
@@ -104,49 +108,14 @@ function renderHtml(body: string, styles: string) {
     <style>${styles}</style>
   </html>`;
 }
-const scriptScrollBy = (scrollY: number) => {
+function styles(fontType: string) {
   return `
-  window.scrollBy(0, (${scrollY}))
-  true;
-  `;
-};
-const onClickChordPostMessage = `
-(
-  function() {
-    function onClickChord (chord) {
-      return function () {
-        window.ReactNativeWebView.postMessage(chord)
-      }
-    }
-    var anchors = document.getElementsByClassName('chord');
-    for(var i = 0; i < anchors.length; i++) {
-      var anchor = anchors[i];
-      var chord = anchor.innerText || anchor.textContent;
-      anchor.onclick = onClickChord(chord)
-  }
-    var artistNodes = document.getElementsByClassName('artist');
-    for(var i = 0; i < artistNodes.length; i++) {
-        var anchor = artistNodes[i];
-        var artist = anchor.innerText || anchor.textContent;
-        anchor.onclick = onClickChord("${ARTIST_TAG}" + artist)
-    }
-})();
-
-true;
-`;
-const smoothScrollStyle = `
-html {
-  scroll-behavior: smooth;
-}
-`;
-
-const styles = `
 @font-face {
   font-family: "Anonymous.ttf";
   src: local("Anonymous"), url("file:///android_asset/fonts/Anonymous.ttf") format("truetype");
 }
 body {
-  font-family: monospace;
+  font-family: "${fontType}";
   -webkit-touch-callout: none;
   -webkit-user-select: none;
    -khtml-user-select: none;
@@ -178,7 +147,7 @@ body {
   margin-left: 0px;
   position: relative;
   font-size: 14px;
-  font-family: monospace, Courier;
+  font-family: "${fontType}";
   white-space: pre-wrap;
   color: black;
 }
@@ -238,4 +207,41 @@ body {
   height: 1em;
 }
 `;
+}
+const scriptScrollBy = (scrollY: number) => {
+  return `
+  window.scrollBy(0, (${scrollY}))
+  true;
+  `;
+};
+const onClickChordPostMessage = `
+(
+  function() {
+    function onClickChord (chord) {
+      return function () {
+        window.ReactNativeWebView.postMessage(chord)
+      }
+    }
+    var anchors = document.getElementsByClassName('chord');
+    for(var i = 0; i < anchors.length; i++) {
+      var anchor = anchors[i];
+      var chord = anchor.innerText || anchor.textContent;
+      anchor.onclick = onClickChord(chord)
+  }
+    var artistNodes = document.getElementsByClassName('artist');
+    for(var i = 0; i < artistNodes.length; i++) {
+        var anchor = artistNodes[i];
+        var artist = anchor.innerText || anchor.textContent;
+        anchor.onclick = onClickChord("${ARTIST_TAG}" + artist)
+    }
+})();
+
+true;
+`;
+const smoothScrollStyle = `
+html {
+  scroll-behavior: smooth;
+}
+`;
+
 export default forwardRef(SongRender);

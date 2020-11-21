@@ -25,8 +25,6 @@ import {alertDelete} from '../utils/alertDelete';
 import DocumentPicker from 'react-native-document-picker';
 import {createBundle, importBundle, decodeJsonBundle} from '../db/bundler';
 import RNFS from 'react-native-fs';
-import createFile from '../utils/createFile';
-import Share from 'react-native-share';
 
 type SongListScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList, 'SongList'>,
@@ -68,23 +66,7 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
     }
     setLoading(false);
   }
-  async function onPressShare(id: string, title: string, lyricist: string) {
-    try {
-      let bundle = createBundle([], [id]);
-      let bundleString = JSON.stringify(bundle);
-      let path = await createFile(
-        'documents',
-        'Hira' + '_' + title.toLowerCase() + '_' + lyricist,
-        bundleString,
-      );
-      await Share.open({
-        url: 'file://' + path,
-        message: t('share_message'),
-      });
-    } catch (e) {
-      console.warn(e.message);
-    }
-  }
+
   function onPressEditSong(id: string) {
     props.navigation.navigate('SongEdit', {id});
   }
@@ -157,12 +139,6 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
                   title: t('edit'),
                   icon: 'pencil',
                   onPress: () => onPressEditSong(item.id!),
-                },
-                {
-                  title: t('share'),
-                  icon: 'share',
-                  onPress: () =>
-                    onPressShare(item.id!, item.title, item.lyricist),
                 },
                 {
                   title: t('delete'),
