@@ -86,7 +86,6 @@ const SongTransformer: FunctionComponent<Props> = props => {
     transposeDelta = 0,
     chordProSong,
     fontSize = 14,
-    fontT,
   } = props;
   let htmlSong = '';
   let song: Song;

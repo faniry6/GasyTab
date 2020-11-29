@@ -30,11 +30,11 @@ const AutoScrollSlider: FunctionComponent<AutoScrollSliderProps> = props => {
     onValueChange(0);
   }
 
-  // useEffect(() => {
-  //   if (show) {
-  //     setIsActive(false);
-  //   }
-  // }, [show]);
+  useEffect(() => {
+    if (show) {
+      setIsActive(true);
+    }
+  }, [show]);
 
   useEffect(() => {
     if (isActive) {

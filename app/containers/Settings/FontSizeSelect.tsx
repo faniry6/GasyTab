@@ -7,7 +7,7 @@ import {GlobalSettings} from '../../db/GlobalSettings';
 import ListItem from '../../components/ListItem';
 import PickerModal from '../../components/PickerModal';
 
-export const MIN_FONT_SIZE = 10;
+export const MIN_FONT_SIZE = 14;
 export const MAX_FONT_SIZE = 24;
 export const FONT_SIZE_STEP = 2;
 
