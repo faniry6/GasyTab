@@ -7,8 +7,6 @@ import SongView from './containers/SongView';
 import SongList from './containers/SongList';
 import TabBarIcon from './components/TabBarIcon';
 import OnlineSearch from './containers/OnlineSearch';
-import ServiceView from './containers/ServiceView';
-import ServiceList from './containers/ServiceList';
 import SongPreview from './containers/SongPreview';
 import OnlineArtistView from './containers/OnlineArtistView';
 import SongEdit from './containers/SongEdit';
@@ -167,11 +165,6 @@ const AppNavigation = () => {
         name="PlaylistEdit"
         component={PlaylistEdit}
         options={{headerShown: false}}
-      />
-      <RootStack.Screen
-        name="ServiceView"
-        component={ServiceView}
-        options={({route}) => ({title: route.params.name})}
       />
       <RootStack.Screen name="OnlineSearch" component={OnlineSearch} />
     </RootStack.Navigator>

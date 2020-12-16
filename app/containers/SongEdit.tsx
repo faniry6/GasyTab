@@ -28,6 +28,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const [error, setError] = useState<string | null>(null)
   const [mode, setMode] = useState<'CHORD_PRO' | 'CHORD_SHEET'>('CHORD_PRO')
   const { t } = useContext(LanguageContext)
+  const [isActive, setActive] = useState(false)
 
   function removeMetaTags(text: string) {
     text = text.replace(/{title:[^}]*}\s\n/g, '')
@@ -88,8 +89,31 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   function switchToChordSheet() {
     let song = new ChordSheetJS.ChordProParser().parse(content)
     let plainText = new ChordSheetJS.TextFormatter().format(song)
+    plainText = compress(plainText)
     setContent(plainText)
     setMode('CHORD_SHEET')
+  }
+  /**
+   * Remove extra while line produced by the switch
+   */
+  function compress(text: string) {
+    let compressedText = ""
+    let count_length_zero = 0
+    console.log(text.split("\n"))
+    for (let line of text.split("\n")) {
+      if (line.length == 0 && count_length_zero < 2) {
+        compressedText += "\n"
+        count_length_zero++;
+      } else if (count_length_zero == 2) {
+        count_length_zero = 0
+      }
+      if (line.length > 0)
+        compressedText += line +"\n"
+    }
+    return compressedText;
+  }
+  function setActiveAndContent() {
+    setActive(true)
   }
 
   useLayoutEffect(() => {
@@ -159,11 +183,13 @@ const SongEdit: FunctionComponent<Props> = (props) => {
           numberOfLines={4}
           placeholderTextColor="#aaa"
           multiline={true}
-          autoFocus={false}
+          autoFocus={true}
           autoCorrect={false}
           autoCapitalize='sentences'
           onChangeText={setContent}
+          onSelectionChange={() => { setActiveAndContent() }}
           value={content}
+          selection={isActive?undefined:{start:0}}
         />
       </KeyboardAvoidingView>
     </ScrollView>
