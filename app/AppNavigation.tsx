@@ -52,7 +52,9 @@ const Tab = createBottomTabNavigator<MainTabParamList>();
 const MainTab = () => {
   const {t} = useContext(LanguageContext);
   return (
-    <Tab.Navigator tabBarOptions={{activeTintColor: 'tomato'}}>
+    <Tab.Navigator
+      tabBarOptions={{activeTintColor: 'tomato'}}
+      initialRouteName={'SongList'}>
       <Tab.Screen
         name="PlaylistList"
         options={{
@@ -79,15 +81,6 @@ const MainTab = () => {
         }}
         component={SongList}
       />
-      {/* <Tab.Screen
-        name="OnlineSearch"
-        options={{
-          title: t('online_search'),
-          tabBarIcon: props => <TabBarIcon {...props} name="magnify" />,
-        }}
-        component={OnlineSearch}
-      /> */}
-
       <Tab.Screen
         name="Settings"
         options={{
@@ -150,7 +143,11 @@ const AppNavigation = () => {
         component={SongView}
         options={({route}) => ({title: ' '})}
       />
-      <RootStack.Screen name="SongEdit" component={SongEdit} />
+      <RootStack.Screen
+        name="SongEdit"
+        component={SongEdit}
+        options={({route}) => ({title: t('song_edit')})}
+      />
       <RootStack.Screen
         name="PlaylistView"
         component={PlaylistView}
@@ -166,7 +163,6 @@ const AppNavigation = () => {
         component={PlaylistEdit}
         options={{headerShown: false}}
       />
-      <RootStack.Screen name="OnlineSearch" component={OnlineSearch} />
     </RootStack.Navigator>
   );
 };

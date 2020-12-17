@@ -75,6 +75,7 @@ export const sentences = [
   'this_is_work_in_progress',
   'not_sharable_song',
   'not_sharable_playlist',
+  'song_edit',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -164,6 +165,7 @@ const translations: Languages = {
     not_sharable_song: 'This file belongs to GasyTab, sharing is prohibited',
     not_sharable_playlist:
       'Your playlist contains a GasyTab song, please remove it then share again',
+    song_edit: 'Add/Edit Song',
   },
   // pt_br: {
   //   language_name: 'Português (Brasil)',
@@ -325,6 +327,7 @@ const translations: Languages = {
     this_is_work_in_progress: 'Hoavy tsy ho ela',
     not_sharable_song: "Ny hira nataon'ny GasyTab dia tsy afaka zaraina",
     not_sharable_playlist: "Misy akoron'ny GasyTab ao amin'ny lisitranao",
+    song_edit: 'Hamboatra/Hampiditra',
   },
 };
 export default translations;
