@@ -85,14 +85,14 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
   );
 
   // Default build in playlist from gasyTab
-  useEffect(() => {
-    if (Playlist.getByName('Kaiamba') == null) {
-      importBundle(kaiamba);
-    }
-    if (Playlist.getByName('Evanjelika Vol.1') == null) {
-      importBundle(evanjelika);
-    }
-  }, [playlists]);
+  // useEffect(() => {
+  //   if (Playlist.getByName('Kaiamba') == null) {
+  //     importBundle(kaiamba);
+  //   }
+  //   if (Playlist.getByName('Evanjelika Vol.1') == null) {
+  //     importBundle(evanjelika);
+  //   }
+  // }, [playlists]);
   function onSubmit(playlistName: string) {
     try {
       Playlist.create(playlistName);
