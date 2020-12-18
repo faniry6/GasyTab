@@ -295,7 +295,6 @@ const SongView: FunctionComponent<Props> = props => {
                 onClickChord(songProps.chords, chordString)
               }
               chordProContent={songProps.htmlSong}
-              fontType={GlobalSettings.get().fontType}
               scrollSpeed={scrollSpeed}
             />
             <ChordTab
