@@ -1,4 +1,4 @@
-import React, {useState, FC, useContext, useCallback} from 'react';
+import React, {useState, FC, useContext, useEffect, useCallback} from 'react';
 import {createBundle, importBundle, decodeJsonBundle} from '../../db/bundler';
 import ListItem from '../../components/ListItem';
 import {StyleSheet, Alert, Platform, ScrollView} from 'react-native';
@@ -39,7 +39,6 @@ const Settings: FC<Props> = props => {
     setActiveEnablePageTurnerSelect,
   ] = useState(false);
   const [fontSize, setFontSize] = useState(GlobalSettings.get().fontSize);
-  const [fontType, setFontType] = useState(GlobalSettings.get().fontType);
   const [showTablature, setShowTablature] = useState(
     GlobalSettings.get().showTablature,
   );
@@ -159,7 +158,6 @@ const Settings: FC<Props> = props => {
   useFocusEffect(
     useCallback(() => {
       setFontSize(GlobalSettings.get().fontSize);
-      setFontType(GlobalSettings.get().fontType);
     }, []),
   );
 
@@ -184,7 +182,7 @@ const Settings: FC<Props> = props => {
         <ListItem
           onPress={configureFontSize}
           title={t('text_size')}
-          subtitle={fontType.toString() + ' ' + fontSize.toString()}
+          subtitle={fontSize.toString()}
         />
         <ListItem
           onPress={() => setActiveShowTablatureSelect(true)}

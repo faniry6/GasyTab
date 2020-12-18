@@ -15,7 +15,6 @@ interface Props {
   onPressChord?: (chord: string) => void;
   onPressArtist?: () => void;
   scrollSpeed?: number;
-  fontType: string;
 }
 
 export interface SongRenderRef {
@@ -82,10 +81,7 @@ const SongRender: RefForwardingComponent<SongRenderRef, Props> = (
     }
   }
 
-  let htmlStyles =
-    scrollSpeed > 0
-      ? styles(props.fontType)
-      : smoothScrollStyle + styles(props.fontType);
+  let htmlStyles = scrollSpeed > 0 ? styles() : smoothScrollStyle + styles();
   return (
     <WebView
       ref={webRef}
@@ -108,14 +104,10 @@ function renderHtml(body: string, styles: string) {
     <style>${styles}</style>
   </html>`;
 }
-function styles(fontType: string) {
+function styles() {
   return `
-@font-face {
-  font-family: "Anonymous.ttf";
-  src: local("Anonymous"), url("file:///android_asset/fonts/Anonymous.ttf") format("truetype");
-}
 body {
-  font-family: "${fontType}";
+  font-family: "monospace";
   -webkit-touch-callout: none;
   -webkit-user-select: none;
    -khtml-user-select: none;
@@ -147,7 +139,7 @@ body {
   margin-left: 0px;
   position: relative;
   font-size: 14px;
-  font-family: "${fontType}";
+  font-family: "monospace";
   white-space: pre-wrap;
   color: black;
 }

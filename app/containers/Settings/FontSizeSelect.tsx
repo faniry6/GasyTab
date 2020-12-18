@@ -13,7 +13,6 @@ export const FONT_SIZE_STEP = 2;
 
 const FontSizeSelect: FC = () => {
   const [fontSize, setFontSize] = useState(GlobalSettings.get().fontSize);
-  const [fontType, setFontType] = useState(GlobalSettings.get().fontType);
   const [activeFontSelect, setActiveFontSelect] = useState(false);
   const fonts = ['monospace', 'Courier'];
 
@@ -30,22 +29,8 @@ const FontSizeSelect: FC = () => {
     setFontSize(value);
   }
 
-  function onSelectFont(value: string) {
-    GlobalSettings.setFontType(value);
-    setFontType(value);
-  }
-  function capitalize(s: string) {
-    if (typeof s !== 'string') return '';
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  }
   return (
     <View style={[styles.f1, styles.bgWhite]}>
-      <ListItem
-        onPress={() => setActiveFontSelect(true)}
-        title={'Font'}
-        subtitle={GlobalSettings.get().fontType}
-      />
-
       <View style={styles.sliderContainer}>
         <Slider
           style={styles.f1}
@@ -64,21 +49,10 @@ const FontSizeSelect: FC = () => {
         chordProSong={chordSheet}>
         {({chords, htmlSong}) => (
           <View style={styles.f1}>
-            <SongRender chordProContent={htmlSong} fontType={fontType} />
+            <SongRender chordProContent={htmlSong} />
           </View>
         )}
       </SongTransformer>
-      <PickerModal
-        show={activeFontSelect}
-        onChange={onSelectFont}
-        onDismiss={() => setActiveFontSelect(false)}
-        value={GlobalSettings.get().fontType}
-        options={fonts.map(l => ({
-          key: 'lang-option-' + l,
-          label: capitalize(l),
-          value: l,
-        }))}
-      />
     </View>
   );
 };

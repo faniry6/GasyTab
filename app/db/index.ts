@@ -6,7 +6,7 @@ import {GlobalSettings} from './GlobalSettings';
 
 var realm = new Realm({
   schema: [Song.schema, Artist.schema, Playlist.schema, GlobalSettings.schema],
-  schemaVersion: 9,
+  schemaVersion: 11,
   migration: () => {},
 });
 export default realm;

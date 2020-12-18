@@ -83,6 +83,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   function switchToChordPro() {
     let song = new ChordSheetJS.ChordSheetParser({ preserveWhitespace: false }).parse(content)
     let chordPro = new ChordSheetJS.ChordProFormatter().format(song)
+    chordPro = compress(chordPro)
     setContent(chordPro)
     setMode('CHORD_PRO')
   }
@@ -99,12 +100,12 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   function compress(text: string) {
     let compressedText = ""
     let count_length_zero = 0
-    console.log(text.split("\n"))
+
     for (let line of text.split("\n")) {
       if (line.length == 0 && count_length_zero < 2) {
         compressedText += "\n"
         count_length_zero++;
-      } else if (count_length_zero == 2) {
+      } else if (count_length_zero >= 2) {
         count_length_zero = 0
       }
       if (line.length > 0)

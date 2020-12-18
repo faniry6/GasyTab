@@ -7,7 +7,6 @@ const DEFAULTS: GlobalSettings = {
   showTablature: true,
   enablePageTurner: false,
   isDatabaseBuild: false,
-  fontType: 'monospace',
 };
 export class GlobalSettings {
   language!: LanguageID;
@@ -15,14 +14,13 @@ export class GlobalSettings {
   showTablature!: boolean;
   enablePageTurner!: boolean;
   isDatabaseBuild!: boolean;
-  fontType!: string;
 
   static schema: Realm.ObjectSchema = {
     name: 'GlobalSettings',
     properties: {
       language: {type: 'string', default: DEFAULTS.language},
       fontSize: {type: 'int', default: DEFAULTS.fontSize},
-      fontType: {type: 'string', default: DEFAULTS.fontType},
+
       showTablature: {
         type: 'bool',
         default: DEFAULTS.showTablature,
@@ -31,7 +29,7 @@ export class GlobalSettings {
         type: 'bool',
         default: DEFAULTS.enablePageTurner,
       },
-      firstRun: {
+      isDatabaseBuild: {
         type: 'bool',
         default: DEFAULTS.isDatabaseBuild,
       },
@@ -63,12 +61,6 @@ export class GlobalSettings {
     let globalSettings = this.get();
     realm.write(() => {
       globalSettings.fontSize = fontSize;
-    });
-  }
-  static setFontType(fontType: string) {
-    let globalSettings = this.get();
-    realm.write(() => {
-      globalSettings.fontType = fontType;
     });
   }
 
