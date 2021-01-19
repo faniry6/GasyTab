@@ -14,6 +14,7 @@ import {
   Platform,
   View,
   Picker,
+  Alert,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import ListItem from '../components/ListItem';
@@ -28,6 +29,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {RootStackParamList, MainTabParamList} from '../AppNavigation';
 import EmptyListMessage from '../components/EmptyListMessage';
+import SongPreview from './SongPreview';
 
 type OnlineSearchScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<MainTabParamList, 'OnlineSearch'>,
@@ -93,14 +95,13 @@ const OnlineSearch: FunctionComponent<Props> = props => {
             t('you_can_still_create_songs_manually')
           }
           buttonTitle={t('create_song').toUpperCase()}
-          onPress={() => props.navigation.navigate('SongEdit')}
+          //onPress={() => props.navigation.navigate('SongEdit')}
         />
       </SafeAreaView>
     );
   }
   return (
     <SafeAreaView style={styles.container}>
-      {/*   */}
       <StatusBar barStyle="dark-content" backgroundColor="white" />
       <SearchBar
         inputRef={searchInput}

@@ -31,7 +31,7 @@ const SongPreview: FunctionComponent<Props> = props => {
   let serviceName = props.route.params.serviceName;
   let path = props.route.params.path;
   let title = props.route.params.title;
-  let artist = props.route.params.artist;
+  let artist_ = props.route.params.artist;
   let lyricist = props.route.params.lyricist;
   let chordSheet = props.route.params.chordSheet;
 
@@ -46,7 +46,7 @@ const SongPreview: FunctionComponent<Props> = props => {
             preserveWhitespace: false,
           }).parse(chordPro);
           let header = '{title:' + title + '}\n';
-          header += '{artist:' + artist + '}\n';
+          header += '{artist:' + artist_ + '}\n';
           header += '{lyricist:' + lyricist + '}\n';
 
           chordPro = header + formatter.format(chordSheetSong);
@@ -68,31 +68,40 @@ const SongPreview: FunctionComponent<Props> = props => {
   function saveSong() {
     if (isSaving) return;
     setIsSaving(true);
-    const parser = new ChordSheetJS.ChordProParser();
-    const parsedSong = parser.parse(chordSheet_content!);
-    let artistName = parsedSong.getMetaData('artist')!;
-    let songTitle = parsedSong.getMetaData('title')!;
-    let lyricist = parsedSong.getMetaData('lyricist')!;
+    if (serviceName == 'LyricsService') {
+      props.navigation.navigate('SongEdit', {
+        title: title,
+        artist: artist_,
+        lyrics: chordSheet_content,
+        id: null,
+      });
+    } else {
+      const parser = new ChordSheetJS.ChordProParser();
+      const parsedSong = parser.parse(chordSheet_content!);
+      let artistName = parsedSong.getMetaData('artist')!;
+      let songTitle = parsedSong.getMetaData('title')!;
+      let lyricist = parsedSong.getMetaData('lyricist')!;
 
-    let headerlessContent = chordSheet_content!;
-    // headerlessContent = headerlessContent.replace(/{artist:[^}]*}\n/g, '');
-    // headerlessContent = headerlessContent.replace(/{title:[^}]*}\n/g, '');
-    // headerlessContent = headerlessContent.replace(/{lyricist:[^}]*}\n/g, '');
-    headerlessContent = headerlessContent.replace(/{title:(.*)}\n/g, '');
-    headerlessContent = headerlessContent.replace(/{artist:(.*)}\n/g, '');
-    headerlessContent = headerlessContent.replace(/{lyricist:(.*)}\n/g, '');
-    console.log(headerlessContent);
-    let artist: Artist | undefined = Artist.getByName(artistName);
-    if (artist == null) {
-      artist = Artist.create(artistName);
+      let headerlessContent = chordSheet_content!;
+      // headerlessContent = headerlessContent.replace(/{artist:[^}]*}\n/g, '');
+      // headerlessContent = headerlessContent.replace(/{title:[^}]*}\n/g, '');
+      // headerlessContent = headerlessContent.replace(/{lyricist:[^}]*}\n/g, '');
+      headerlessContent = headerlessContent.replace(/{title:(.*)}\n/g, '');
+      headerlessContent = headerlessContent.replace(/{artist:(.*)}\n/g, '');
+      headerlessContent = headerlessContent.replace(/{lyricist:(.*)}\n/g, '');
+      console.log(headerlessContent);
+      let artist: Artist | undefined = Artist.getByName(artistName);
+      if (artist == null) {
+        artist = Artist.create(artistName);
+      }
+      let song = Song.create(artist, songTitle, lyricist, headerlessContent);
+
+      props.navigation.replace('SongView', {
+        id: song.id,
+        title: song.title,
+      });
+      Alert.alert(t('info'), t('song_downloaded'));
     }
-    let song = Song.create(artist, songTitle, lyricist, headerlessContent);
-
-    props.navigation.replace('SongView', {
-      id: song.id,
-      title: song.title,
-    });
-    Alert.alert(t('info'), t('song_downloaded'));
   }
 
   return (

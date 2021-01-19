@@ -1,21 +1,19 @@
 import axios from 'axios';
 import {BaseService, Doc, SongDoc} from './BaseService';
 import ChordSheetJS from 'chordsheetjs';
+import {Alert} from 'react-native';
 
-export default class OpenChordService extends BaseService {
+export default class LyricsService extends BaseService {
   constructor() {
     super();
-    this.name = 'OpenChordService';
-    this.baseUrl = 'https://cifralivre.com.br';
+    this.name = 'LyricsService';
+    this.baseUrl =
+      'https://bvbpqj6ug9.execute-api.eu-central-1.amazonaws.com/dev';
   }
 
   async getSearch(query: string): Promise<Doc[]> {
-    const result = await axios.get(this.baseUrl + '/api/v1/search', {
-      params: {
-        q: query,
-      },
-    });
-    // const result = await axios.get(this.baseUrl + '/api/v1/search/' + query);
+    const result = await axios.get(this.baseUrl + '/api/v1/search/' + query);
+    Alert.alert(query);
     return result.data;
   }
 
@@ -26,6 +24,6 @@ export default class OpenChordService extends BaseService {
 
   async getChordProSong(path: string) {
     const result = await axios.get(this.baseUrl + path);
-    return result.data.chordPro;
+    return result.data.lyrics;
   }
 }
