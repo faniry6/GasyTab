@@ -39,6 +39,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {createBundle} from '../../db/bundler';
 import createFile from '../../utils/createFile';
 import Share from 'react-native-share';
+import {services, getService} from '../../services';
 
 type SongViewScreenRouteProp = RouteProp<RootStackParamList, 'SongView'>;
 type SongViewScreenNavigationProp = StackNavigationProp<
@@ -123,7 +124,21 @@ const SongView: FunctionComponent<Props> = props => {
     props.navigation.replace('SongEdit', {id: songId});
   }
   function uploadSong() {
-    Alert.alert('Info', t('this_is_work_in_progress'));
+    let song = Song.getById(songId)!;
+
+    let content = {
+      id: songId,
+      artist: song.artist.name,
+      title: song.title,
+      chordPro: song.content,
+      lyricist: song.lyricist,
+      title_lowercase: song.title.toLowerCase(),
+      artist_lowercase: song.artist.name.toLowerCase(),
+      premium: 'yes',
+    };
+    if (getService(services[1].name)!.postSong(JSON.stringify(content))) {
+      Alert.alert('Info', 'Post successfully to database');
+    }
   }
   function showTone(tone: number) {
     if (tone === 0) return null;

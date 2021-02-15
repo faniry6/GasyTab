@@ -5,6 +5,7 @@ import LyricsService from './LyricsService';
 
 export const services: BaseService[] = [
   new LyricsService(),
+  new GasyTabService(),
   new OpenChordService(),
 ];
 export const getService = (serviceName: string) => {

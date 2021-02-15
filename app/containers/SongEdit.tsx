@@ -35,7 +35,8 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const [isSideMenuOpen, setIsSideMenuOpen] = useState<boolean>(false);
   const searchInput = useRef<TextInput>(null)
   const isFocused = useIsFocused();
-
+  let id = props.route.params?.id
+  
   function removeMetaTags(text: string) {
     text = text.replace(/{title:[^}]*}\s\n/g, '')
     text = text.replace(/{t:[^}]*}\s\n/g, '')
@@ -47,7 +48,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
  
   useEffect(() => {
     if (isFocused) {
-      let id = props.route.params?.id
+      
       if (id != null) {
         let song = Song.getById(id)!
         setTitle(song.title)
@@ -259,10 +260,12 @@ function openSideMenu() {
             <Text>{t('chords_over_lyrics')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+              style={[styles.button, {display: id != null ? "none" : "flex"}]}
+            disabled={id != null}
             onPress={() => {
                   props.navigation.navigate('OnlineSearch');
-                }}>
+              }}>
+              <TouchableIcon size={15} name='download' />
             <Text>Tononkira</Text>
           </TouchableOpacity>
         </View>
@@ -295,10 +298,14 @@ const styles = StyleSheet.create({
   tabsContainer: {
     flexDirection: 'row'
   },
-    button: {
+  button: {
     alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
+    borderTopRightRadius: 3,
+    borderTopLeftRadius: 3,
+    paddingVertical: 0,
+    paddingRight: 20,
+    flexDirection: "row",
+    backgroundColor: "darkseagreen"
   },
   tabActive: {
     borderTopRightRadius: 3,

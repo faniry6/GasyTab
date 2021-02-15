@@ -12,9 +12,6 @@ import {
   Keyboard,
   StatusBar,
   Platform,
-  View,
-  Picker,
-  Alert,
 } from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import ListItem from '../components/ListItem';

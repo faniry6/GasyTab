@@ -24,11 +24,13 @@ export default class GasyTabService extends BaseService {
     return result.data.chordPro;
   }
 
-  async postSong(path: string, content: string) {
-    axios.post(path, content).then(function(response) {
-      console.log(response);
-    });
-    return 'Success';
+  postSong(content: string) {
+    axios
+      .post(this.baseUrl + '/api/v1/songs', content)
+      .then(function(response) {
+        console.log(response);
+      });
+    return true;
   }
 
   async getLyricsSongs(path: string) {

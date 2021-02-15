@@ -53,13 +53,15 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
   }
   async function onPressShare(id: string, name: string) {
     let p = Playlist.getById(id);
+
     if (!p) throw new Error('Invalid playlist id');
+
     for (var s in p.songs) {
       let song = p.songs[s];
-      //TODO: Do not allow sharing if the file belongs to GasyTab
-      if (song.lyricist.toUpperCase() == 'GASYTAB')
+      if (song.lyricist.toUpperCase() == 'GASYTAB') {
         Alert.alert('Tsy mety', t('not_sharable_playlist'));
-      return;
+        return;
+      }
     }
     try {
       let bundle = createBundle([id], []);

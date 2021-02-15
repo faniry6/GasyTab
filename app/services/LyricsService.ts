@@ -12,8 +12,8 @@ export default class LyricsService extends BaseService {
   }
 
   async getSearch(query: string): Promise<Doc[]> {
+    Alert.alert('Info', this.baseUrl + '/api/v1/search/' + query);
     const result = await axios.get(this.baseUrl + '/api/v1/search/' + query);
-    Alert.alert(query);
     return result.data;
   }
 
@@ -25,5 +25,9 @@ export default class LyricsService extends BaseService {
   async getChordProSong(path: string) {
     const result = await axios.get(this.baseUrl + path);
     return result.data.lyrics;
+  }
+
+  postSong(content: string) {
+    return true;
   }
 }
