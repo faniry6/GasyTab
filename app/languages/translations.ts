@@ -76,6 +76,7 @@ export const sentences = [
   'not_sharable_song',
   'not_sharable_playlist',
   'song_edit',
+  'lyrics',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -166,6 +167,7 @@ const translations: Languages = {
     not_sharable_playlist:
       'Your playlist contains a GasyTab song, please remove it then share again',
     song_edit: 'Add/Edit Song',
+    lyrics: 'Lyrics',
   },
   // pt_br: {
   //   language_name: 'Português (Brasil)',
@@ -271,7 +273,7 @@ const translations: Languages = {
     you_havent_downloaded_any_song_yet: "Mbola tsy misy hira amin'ny lisitra",
     you_havent_added_any_song_to_this_playlist_yet:
       "Mbola tsy nanampy hira tamin'ny lisitra enao",
-    search: 'Hitady',
+    search: 'Hitady Mpihira',
     create: 'Hamboatra',
     playlist_name: 'Anarana lisitra',
     playlist_edit: 'Ovaina lisitra',
@@ -328,6 +330,7 @@ const translations: Languages = {
     not_sharable_song: "Ny hira nataon'ny GasyTab dia tsy afaka zaraina",
     not_sharable_playlist: "Misy akoron'ny GasyTab ao amin'ny lisitranao",
     song_edit: 'Hamboatra/Hampiditra',
+    lyrics: 'Tononkira',
   },
 };
 export default translations;

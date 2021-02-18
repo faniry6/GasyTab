@@ -172,7 +172,7 @@ const AppNavigation = () => {
       <RootStack.Screen
         name="OnlineSearch"
         component={OnlineSearch}
-        options={({route}) => ({title: 'Tononkira'})}
+        options={({route}) => ({title: t('lyrics')})}
       />
     </RootStack.Navigator>
   );

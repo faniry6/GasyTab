@@ -29,7 +29,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const [lyricist, setLyricist] = useState("")
   const [changeLyricist, setChangeLyricist] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [mode, setMode] = useState<'CHORD_PRO' | 'CHORD_SHEET'>('CHORD_PRO')
+  const [mode, setMode] = useState<'CHORD_SHEET' | 'CHORD_PRO'>('CHORD_SHEET')
   const { t } = useContext(LanguageContext)
   const [isActive, setActive] = useState(false)
   const [isSideMenuOpen, setIsSideMenuOpen] = useState<boolean>(false);
@@ -248,16 +248,16 @@ function openSideMenu() {
           onChangeText={setLyricist}
           value={lyricist}
         />
-        <View style={styles.tabsContainer}>
+          <View style={styles.tabsContainer}>
+             <TouchableOpacity
+            style={mode == 'CHORD_SHEET' ? styles.tabActive : styles.tabInactive}
+            onPress={switchToChordSheet} disabled={mode == 'CHORD_SHEET'}>
+            <Text>{t('chords_over_lyrics')}</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={mode == 'CHORD_PRO' ? styles.tabActive : styles.tabInactive}
             onPress={switchToChordPro} disabled={mode == 'CHORD_PRO'}>
             <Text>ChordPro</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={mode == 'CHORD_SHEET' ? styles.tabActive : styles.tabInactive}
-            onPress={switchToChordSheet} disabled={mode == 'CHORD_SHEET'}>
-            <Text>{t('chords_over_lyrics')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
               style={[styles.button, {display: id != null ? "none" : "flex"}]}
@@ -266,7 +266,7 @@ function openSideMenu() {
                   props.navigation.navigate('OnlineSearch');
               }}>
               <TouchableIcon size={15} name='download' />
-            <Text>Tononkira</Text>
+            <Text>{t('lyrics')}</Text>
           </TouchableOpacity>
         </View>
         <TextInput
