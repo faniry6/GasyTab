@@ -127,6 +127,7 @@ export type RootStackParamList = {
   PlaylistEdit: {id: string};
   ServiceView: {name: string};
   OnlineSearch: undefined;
+  OnlineTabListView: {service: string};
 };
 const RootStack = createStackNavigator<RootStackParamList>();
 const AppNavigation = () => {
