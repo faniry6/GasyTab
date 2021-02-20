@@ -104,9 +104,15 @@ export type RootStackParamList = {
     lyricist: string;
     chordSheet: string;
   };
+  SongEdit: {
+    title: string;
+    artist: string;
+    lyrics: string | null;
+    id: string | null;
+  };
   ArtistView: {id: string; title: string};
   SongView: {id: string; title: string};
-  SongEdit: undefined | {id: string};
+
   PlaylistView: {id: string; title: string};
   PlaylistAddSongs: {id: string};
   PlaylistEdit: {id: string};
@@ -162,6 +168,11 @@ const AppNavigation = () => {
         name="PlaylistEdit"
         component={PlaylistEdit}
         options={{headerShown: false}}
+      />
+      <RootStack.Screen
+        name="OnlineSearch"
+        component={OnlineSearch}
+        options={({route}) => ({title: t('lyrics')})}
       />
     </RootStack.Navigator>
   );

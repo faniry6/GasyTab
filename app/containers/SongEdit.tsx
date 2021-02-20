@@ -1,5 +1,5 @@
-import React, { useState, useEffect, FunctionComponent, useContext, useLayoutEffect } from "react";
-import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, Platform } from "react-native";
+import React, { useState, useEffect, useCallback, useRef, FunctionComponent, useContext, useLayoutEffect } from "react";
+import { Text, View, StyleSheet, TextInput, KeyboardAvoidingView, Platform, Alert } from "react-native";
 import { Song, Artist } from '../db'
 import TouchableIcon from "../components/TouchableIcon";
 import ChordSheetJS from 'chordsheetjs'
@@ -7,7 +7,10 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { RootStackParamList } from "../AppNavigation";
 import LanguageContext from "../languages/LanguageContext";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { RouteProp, useFocusEffect } from "@react-navigation/native";
+import { RouteProp, useIsFocused } from "@react-navigation/native";
+import LyricsFinder from "../components/LyricsFinder";
+import SearchBar from "../components/SearchBar";
+import OnlineSearch from "../containers/OnlineSearch";
 
 type SongEditScreenRouteProp = RouteProp<RootStackParamList, 'SongEdit'>
 type SongEditScreenNavigationProp = StackNavigationProp<
@@ -26,10 +29,14 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   const [lyricist, setLyricist] = useState("")
   const [changeLyricist, setChangeLyricist] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [mode, setMode] = useState<'CHORD_PRO' | 'CHORD_SHEET'>('CHORD_PRO')
+  const [mode, setMode] = useState<'CHORD_SHEET' | 'CHORD_PRO'>('CHORD_SHEET')
   const { t } = useContext(LanguageContext)
   const [isActive, setActive] = useState(false)
-
+  const [isSideMenuOpen, setIsSideMenuOpen] = useState<boolean>(false);
+  const searchInput = useRef<TextInput>(null)
+  const isFocused = useIsFocused();
+  let id = props.route.params?.id
+  
   function removeMetaTags(text: string) {
     text = text.replace(/{title:[^}]*}\s\n/g, '')
     text = text.replace(/{t:[^}]*}\s\n/g, '')
@@ -38,17 +45,82 @@ const SongEdit: FunctionComponent<Props> = (props) => {
     text = text.replace(/{lyricist:[^}]*}\s\n/g, '')
     return text
   }
+ 
   useEffect(() => {
-    let id = props.route.params?.id
-    if (id != null) {
-      let song = Song.getById(id)!
-      setTitle(song.title)
-      setArtist(song.artist.name)
-      setLyricist(song.lyricist)
-      setContent(removeMetaTags(song.content))
-      setChangeLyricist(false)
+    if (isFocused) {
+      
+      if (id != null) {
+        let song = Song.getById(id)!
+        setTitle(song.title)
+        setArtist(song.artist.name)
+        setLyricist(song.lyricist)
+        setContent(removeMetaTags(song.content))
+        setChangeLyricist(true)
+      } else if (props.route.params?.title != null) {
+        let song = props.route.params?.lyrics
+        setTitle(props.route.params?.title)
+        setArtist(props.route.params?.artist)
+        setChangeLyricist(true)
+        if (song != null) {
+          setContent(song)
+        }
+      }
     }
-  }, [])
+  }, [isFocused]);
+
+  // useEffect(
+  //   React.useCallback(() => {
+  //   setTitle(props.route.params?.title)
+  //   Alert.alert("this is the title inside " + a)
+  //   if (title != null) {
+  //     let song = props.route.params?.lyrics
+  //     setTitle(title)
+  //     setArtist(props.route.params?.artist)
+  //     if (song != null) {
+  //       setContent(song)
+  //     }
+  //   }
+  //   }, [title])
+  // );
+  
+  // useEffect(
+  //   let title = props.route.params?.title
+  //   Alert.alert("this is the title" + title)
+  //   if (title != null) {
+  //   let song = props.route.params?.lyrics
+  //   setTitle(title)
+  //   setArtist(props.route.params?.artist)
+  //   if (song != null) {
+  //     setContent(song)
+  //   }
+  // } , []),
+  
+
+  // useEffect(() => {
+  //   // let id = props.route.params?.id
+  //   // if (id != null) {
+  //   //   let song = Song.getById(id)!
+  //   //   setTitle(song.title)
+  //   //   setArtist(song.artist.name)
+  //   //   setLyricist(song.lyricist)
+  //   //   setContent(removeMetaTags(song.content))
+  //   //   setChangeLyricist(false)
+  //   // }
+    
+  //   let title = props.route.params?.title
+    
+  //   if (title != null) {
+  //     Alert.alert("this is the title" + title)
+  //     Alert.alert(title)
+  //     setTitle("Title")
+  //     let song = props.route.params?.lyrics
+  //     setTitle(title)
+  //     setArtist(props.route.params.artist)
+  //     if(song != null)
+  //       setContent(song)
+  //     setTitle("This title")
+  //   }
+  // }, [])
 
   function saveSong() {
     if (title.trim() == '') return setError(t('invalid_title'))
@@ -116,12 +188,12 @@ const SongEdit: FunctionComponent<Props> = (props) => {
   function setActiveAndContent() {
     setActive(true)
   }
-
+  
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => <TouchableIcon onPress={saveSong} name="content-save" />,
     });
-  }, [navigation, title, content, artist]);
+  }, [navigation, title, content, artist, lyricist]);
 
   const contentPlaceholder = mode == 'CHORD_PRO' ?
     "You can edit any song here\n" +
@@ -129,8 +201,19 @@ const SongEdit: FunctionComponent<Props> = (props) => {
     "You can edit any song here\n" +
     " C              Dm          G\n" +
     "Using the chord sheet format\n\n\n"
-
+function openSideMenu() {
+    setIsSideMenuOpen(!isSideMenuOpen);
+  }
+ 
   return (
+    <>
+    {/* <LyricsFinder
+       isOpen={isSideMenuOpen}
+        onDismiss={() => {
+          setIsSideMenuOpen(false);
+        }}>
+        <OnlineSearch/>
+        </LyricsFinder> */}
     <ScrollView
       contentContainerStyle={styles.container}
       keyboardDismissMode="none"
@@ -158,23 +241,32 @@ const SongEdit: FunctionComponent<Props> = (props) => {
         <TextInput
           style={styles.input}
           placeholder={t('lyricist_name')}
-          editable= {changeLyricist}
+          // editable= {changeLyricist}
           autoFocus={false}
           autoCorrect={false}
           autoCapitalize='words'
           onChangeText={setLyricist}
           value={lyricist}
         />
-        <View style={styles.tabsContainer}>
+          <View style={styles.tabsContainer}>
+             <TouchableOpacity
+            style={mode == 'CHORD_SHEET' ? styles.tabActive : styles.tabInactive}
+            onPress={switchToChordSheet} disabled={mode == 'CHORD_SHEET'}>
+            <Text>{t('chords_over_lyrics')}</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={mode == 'CHORD_PRO' ? styles.tabActive : styles.tabInactive}
             onPress={switchToChordPro} disabled={mode == 'CHORD_PRO'}>
             <Text>ChordPro</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={mode == 'CHORD_SHEET' ? styles.tabActive : styles.tabInactive}
-            onPress={switchToChordSheet} disabled={mode == 'CHORD_SHEET'}>
-            <Text>{t('chords_over_lyrics')}</Text>
+              style={[styles.button, {display: id != null ? "none" : "flex"}]}
+            disabled={id != null}
+            onPress={() => {
+                  props.navigation.navigate('OnlineSearch');
+              }}>
+              <TouchableIcon size={15} name='download' />
+            <Text>{t('lyrics')}</Text>
           </TouchableOpacity>
         </View>
         <TextInput
@@ -193,7 +285,8 @@ const SongEdit: FunctionComponent<Props> = (props) => {
           selection={isActive?undefined:{start:0}}
         />
       </KeyboardAvoidingView>
-    </ScrollView>
+      </ScrollView>
+      </>
   );
 }
 
@@ -204,6 +297,15 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flexDirection: 'row'
+  },
+  button: {
+    alignItems: "center",
+    borderTopRightRadius: 3,
+    borderTopLeftRadius: 3,
+    paddingVertical: 0,
+    paddingRight: 20,
+    flexDirection: "row",
+    backgroundColor: "darkseagreen"
   },
   tabActive: {
     borderTopRightRadius: 3,

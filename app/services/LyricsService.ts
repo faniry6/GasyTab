@@ -1,15 +1,18 @@
 import axios from 'axios';
 import {BaseService, Doc, SongDoc} from './BaseService';
+import ChordSheetJS from 'chordsheetjs';
+import {Alert} from 'react-native';
 
-export default class GasyTabService extends BaseService {
+export default class LyricsService extends BaseService {
   constructor() {
     super();
-    this.name = 'GasyTab';
+    this.name = 'LyricsService';
     this.baseUrl =
-      'https://u9uolhl94e.execute-api.eu-central-1.amazonaws.com/dev';
+      'https://bvbpqj6ug9.execute-api.eu-central-1.amazonaws.com/dev';
   }
 
   async getSearch(query: string): Promise<Doc[]> {
+    Alert.alert('Info', this.baseUrl + '/api/v1/search/' + query);
     const result = await axios.get(this.baseUrl + '/api/v1/search/' + query);
     return result.data;
   }
@@ -21,20 +24,10 @@ export default class GasyTabService extends BaseService {
 
   async getChordProSong(path: string) {
     const result = await axios.get(this.baseUrl + path);
-    return result.data.chordPro;
+    return result.data.lyrics;
   }
 
   postSong(content: string) {
-    axios
-      .post(this.baseUrl + '/api/v1/songs', content)
-      .then(function(response) {
-        console.log(response);
-      });
     return true;
-  }
-
-  async getLyricsSongs(path: string) {
-    const result = await axios.get(this.baseUrl + path);
-    return result.data.lyrics;
   }
 }
