@@ -132,8 +132,8 @@ const SongView: FunctionComponent<Props> = props => {
       title: song.title,
       chordPro: song.content,
       lyricist: song.lyricist,
-      title_lowercase: song.title.toLowerCase(),
-      artist_lowercase: song.artist.name.toLowerCase(),
+      song_lower: song.title.toLowerCase(),
+      artist_lower: song.artist.name.toLowerCase(),
       premium: 'yes',
     };
     if (getService(services[1].name)!.postSong(JSON.stringify(content))) {
