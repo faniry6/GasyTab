@@ -77,6 +77,7 @@ export const sentences = [
   'not_sharable_playlist',
   'song_edit',
   'lyrics',
+  'online_service',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -168,6 +169,7 @@ const translations: Languages = {
       'Your playlist contains a GasyTab song, please remove it then share again',
     song_edit: 'Add/Edit Song',
     lyrics: 'Lyrics',
+    online_service: 'Service',
   },
   // pt_br: {
   //   language_name: 'Português (Brasil)',
@@ -331,6 +333,7 @@ const translations: Languages = {
     not_sharable_playlist: "Misy akoron'ny GasyTab ao amin'ny lisitranao",
     song_edit: 'Hamboatra/Hampiditra',
     lyrics: 'Tononkira',
+    online_service: 'Hitady',
   },
 };
 export default translations;

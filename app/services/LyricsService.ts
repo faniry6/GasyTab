@@ -30,4 +30,8 @@ export default class LyricsService extends BaseService {
   postSong(content: string) {
     return true;
   }
+  async getAllSong(): Promise<SongDoc[]> {
+    const result = await axios.get(this.baseUrl + '/songs');
+    return result.data;
+  }
 }

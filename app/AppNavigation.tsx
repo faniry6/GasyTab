@@ -6,7 +6,7 @@ import ArtistView from './containers/ArtistView';
 import SongView from './containers/SongView';
 import SongList from './containers/SongList';
 import TabBarIcon from './components/TabBarIcon';
-import OnlineSearch from './containers/OnlineSearch';
+import OnlineService from './containers/OnlineService';
 import SongPreview from './containers/SongPreview';
 import OnlineArtistView from './containers/OnlineArtistView';
 import SongEdit from './containers/SongEdit';
@@ -47,6 +47,7 @@ export type MainTabParamList = {
   ServiceList: undefined;
   OnlineSearch: undefined;
   Settings: undefined;
+  OnlineService: undefined;
 };
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const MainTab = () => {
@@ -80,6 +81,14 @@ const MainTab = () => {
           ),
         }}
         component={SongList}
+      />
+      <Tab.Screen
+        name="OnlineService"
+        options={{
+          title: t('online_service'),
+          tabBarIcon: props => <TabBarIcon {...props} name="earth" />,
+        }}
+        component={OnlineService}
       />
       <Tab.Screen
         name="Settings"

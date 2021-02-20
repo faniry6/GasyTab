@@ -24,4 +24,5 @@ export abstract class BaseService {
   abstract async getChordProSong(path: string): Promise<string>;
   abstract postSong(content: string): boolean;
   // abstract async getLyricsSongs(path: string): Promise<string>;
+  abstract async getAllSong(): Promise<SongDoc[]>;
 }

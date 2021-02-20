@@ -4,7 +4,7 @@ import {BaseService, Doc, SongDoc} from './BaseService';
 export default class GasyTabService extends BaseService {
   constructor() {
     super();
-    this.name = 'GasyTab';
+    this.name = 'GasyTab (Premium)';
     this.baseUrl =
       'https://u9uolhl94e.execute-api.eu-central-1.amazonaws.com/dev';
   }
@@ -33,8 +33,8 @@ export default class GasyTabService extends BaseService {
     return true;
   }
 
-  async getLyricsSongs(path: string) {
-    const result = await axios.get(this.baseUrl + path);
-    return result.data.lyrics;
+  async getAllSong(): Promise<SongDoc[]> {
+    const result = await axios.get(this.baseUrl + '/songs');
+    return result.data;
   }
 }
