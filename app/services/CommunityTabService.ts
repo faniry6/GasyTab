@@ -1,12 +1,14 @@
 import axios from 'axios';
+import {Alert} from 'react-native';
 import {BaseService, Doc, SongDoc} from './BaseService';
 
 export default class CommunityTabService extends BaseService {
   constructor() {
     super();
-    this.name = 'Community Tab';
+    this.name = 'GasyMpiTab';
     this.baseUrl =
       'https://u9uolhl94e.execute-api.eu-central-1.amazonaws.com/dev';
+    this.id = 0;
   }
 
   async getSearch(query: string): Promise<Doc[]> {
@@ -24,11 +26,13 @@ export default class CommunityTabService extends BaseService {
     return result.data.chordPro;
   }
 
-  async postSong(path: string, content: string) {
-    axios.post(path, content).then(function(response) {
-      console.log(response);
-    });
-    return 'Success';
+  postSong(content: string) {
+    axios
+      .post(this.baseUrl + '/api/v1/songs', content)
+      .then(function(response) {
+        console.log(response);
+      });
+    return true;
   }
 
   async getLyricsSongs(path: string) {
@@ -37,7 +41,7 @@ export default class CommunityTabService extends BaseService {
   }
 
   async getAllSong(): Promise<SongDoc[]> {
-    const result = await axios.get(this.baseUrl + '/songs');
+    const result = await axios.get(this.baseUrl + '/api/v1/community/songs');
     return result.data;
   }
 }

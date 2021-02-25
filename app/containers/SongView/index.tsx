@@ -125,16 +125,26 @@ const SongView: FunctionComponent<Props> = props => {
   }
   function uploadSong() {
     let song = Song.getById(songId)!;
-
+    let metainfo =
+      '{title:' +
+      song.title +
+      '}\n' +
+      '{artist:' +
+      song.artist.name +
+      '}\n' +
+      '{lyricist:' +
+      song.lyricist +
+      '}\n';
     let content = {
       id: songId,
       artist: song.artist.name,
       title: song.title,
-      chordPro: song.content,
+      chordPro: metainfo + song.content,
       lyricist: song.lyricist,
-      song_lower: song.title.toLowerCase(),
-      artist_lower: song.artist.name.toLowerCase(),
-      premium: 'yes',
+      song_lower: song.title.replace(' ', '_').toLowerCase(),
+      artist_lower: song.artist.name.replace(' ', '_').toLowerCase(),
+      chordSheet: 'false',
+      premium: song.lyricist == 'GasyTab' ? 'yes' : 'no',
     };
     if (getService(services[1].name)!.postSong(JSON.stringify(content))) {
       Alert.alert('Info', 'Post successfully to database');

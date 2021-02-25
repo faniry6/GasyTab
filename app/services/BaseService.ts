@@ -18,6 +18,7 @@ export abstract class BaseService {
   name!: string;
   baseUrl!: string;
   searchUrl!: string;
+  id!: number;
   constructor() {}
   abstract async getSearch(query: string): Promise<Doc[]>;
   abstract async getArtistSongs(path: string): Promise<SongDoc[]>;

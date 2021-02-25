@@ -7,8 +7,10 @@ import SongView from './containers/SongView';
 import SongList from './containers/SongList';
 import TabBarIcon from './components/TabBarIcon';
 import OnlineService from './containers/OnlineService';
+import OnlineSearch from './containers/OnlineSearch';
 import SongPreview from './containers/SongPreview';
 import OnlineArtistView from './containers/OnlineArtistView';
+import OnlineTabListView from './containers/OnlineTabListView';
 import SongEdit from './containers/SongEdit';
 import PlaylistList from './containers/PlaylistList';
 import PlaylistView from './containers/PlaylistView';
@@ -127,7 +129,7 @@ export type RootStackParamList = {
   PlaylistEdit: {id: string};
   ServiceView: {name: string};
   OnlineSearch: undefined;
-  OnlineTabListView: {service: string};
+  OnlineTabListView: {name: string};
 };
 const RootStack = createStackNavigator<RootStackParamList>();
 const AppNavigation = () => {
@@ -183,6 +185,11 @@ const AppNavigation = () => {
         name="OnlineSearch"
         component={OnlineSearch}
         options={({route}) => ({title: t('lyrics')})}
+      />
+      <RootStack.Screen
+        name="OnlineTabListView"
+        component={OnlineTabListView}
+        options={({route}) => ({title: route.params.name})}
       />
     </RootStack.Navigator>
   );

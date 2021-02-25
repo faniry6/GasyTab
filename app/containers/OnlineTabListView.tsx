@@ -1,5 +1,5 @@
-import React, {useState, useContext, FC} from 'react';
-import {FlatList} from 'react-native';
+import React, {useState, useContext, FC, useEffect} from 'react';
+import {FlatList, Text, Alert} from 'react-native';
 import {Song, Artist} from '../db';
 import ListItem from '../components/ListItem';
 import LanguageContext from '../languages/LanguageContext';
@@ -7,6 +7,8 @@ import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '../AppNavigation';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {alertDelete} from '../utils/alertDelete';
+import {services, getService} from '../services';
+import {SongDoc} from '../services/BaseService';
 
 type OnlineTabListViewScreenRouteProp = RouteProp<
   RootStackParamList,
@@ -21,40 +23,62 @@ type Props = {
   navigation: OnlineTabListViewScreenNavigationProp;
 };
 const OnlineTabListView: FC<Props> = props => {
-  let serviceName = props.route.params.service;
-  let artist = Artist.getById(id)!;
-  const [musics, setMusics] = useState(Song.getByArtist(artist.id!));
+  let serviceName = props.route.params.name;
+  const [docs, setDocs] = useState<SongDoc[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const {t} = useContext(LanguageContext);
 
-  function onSelectSong(id: string, title: string) {
-    props.navigation.navigate('SongView', {id, title});
-  }
-  function onPressEditSong(id: string) {
-    props.navigation.navigate('SongEdit', {id});
-  }
-  function onPressDeleteSong(id: string) {
-    alertDelete('song', id, () => {
-      let songs = Song.getByArtist(artist.id!);
-      if (songs.length > 0) {
-        setMusics(songs);
+  async function getSongList() {
+    const fetchData = async () => {
+      const docs = await getService(serviceName)!.getAllSong();
+      setDocs(docs);
+    };
+    try {
+      setIsLoading(true);
+      setError(null);
+      await fetchData();
+      setIsLoading(false);
+    } catch (e) {
+      if (e instanceof Error) {
+        setIsLoading(false);
+        setError(e.message);
       } else {
-        props.navigation.goBack();
+        throw e;
       }
-    });
+    }
   }
+
+  useEffect(() => {
+    getSongList();
+  }, []);
+
   return (
     <FlatList
-      data={musics}
+      data={docs}
+      ListEmptyComponent={() => {
+        return docs != null && !isLoading ? (
+          <Text style={{textAlign: 'center'}}>
+            {t('artist_or_song_not_found')}
+          </Text>
+        ) : null;
+      }}
       renderItem={({item}) => {
         return (
           <ListItem
-            key={item.id!}
+            key={item.title}
             title={item.title}
-            onPress={() => onSelectSong(item.id!, item.title)}
-            options={[
-              {title: t('edit'), onPress: () => onPressEditSong(item.id!)},
-              {title: t('delete'), onPress: () => onPressDeleteSong(item.id!)},
-            ]}
+            subtitle={item.artist + ' | ' + item.lyricist}
+            onPress={() => {
+              props.navigation.navigate('SongPreview', {
+                path: item.path,
+                title: item.title,
+                artist: item.artist,
+                lyricist: item.lyricist,
+                chordSheet: item.chordSheet,
+                serviceName,
+              });
+            }}
           />
         );
       }}

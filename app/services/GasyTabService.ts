@@ -7,6 +7,7 @@ export default class GasyTabService extends BaseService {
     this.name = 'GasyTab (Premium)';
     this.baseUrl =
       'https://u9uolhl94e.execute-api.eu-central-1.amazonaws.com/dev';
+    this.id = 1;
   }
 
   async getSearch(query: string): Promise<Doc[]> {
