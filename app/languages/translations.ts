@@ -78,6 +78,7 @@ export const sentences = [
   'song_edit',
   'lyrics',
   'online_service',
+  'upload_to_gasytab',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -170,6 +171,7 @@ const translations: Languages = {
     song_edit: 'Add/Edit Song',
     lyrics: 'Lyrics',
     online_service: 'Service',
+    upload_to_gasytab: 'upload to gasytab',
   },
   // pt_br: {
   //   language_name: 'Português (Brasil)',
@@ -334,6 +336,7 @@ const translations: Languages = {
     song_edit: 'Hamboatra/Hampiditra',
     lyrics: 'Tononkira',
     online_service: 'Hitady',
+    upload_to_gasytab: 'Alefa gasytab.com',
   },
 };
 export default translations;

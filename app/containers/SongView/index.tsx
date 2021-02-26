@@ -135,14 +135,15 @@ const SongView: FunctionComponent<Props> = props => {
       '{lyricist:' +
       song.lyricist +
       '}\n';
+    let v = 's+';
     let content = {
       id: songId,
       artist: song.artist.name,
       title: song.title,
       chordPro: metainfo + song.content,
       lyricist: song.lyricist,
-      song_lower: song.title.replace(' ', '_').toLowerCase(),
-      artist_lower: song.artist.name.replace(' ', '_').toLowerCase(),
+      song_lower: song.title.replace(/\s/g, '_').toLowerCase(),
+      artist_lower: song.artist.name.replace(/\s/g, '_').toLowerCase(),
       chordSheet: 'false',
       premium: song.lyricist == 'GasyTab' ? 'yes' : 'no',
     };
@@ -301,7 +302,7 @@ const SongView: FunctionComponent<Props> = props => {
         <Divider />
         <TouchableHighlight underlayColor="#ccc" onPress={() => uploadSong()}>
           <View style={styles.tool}>
-            <Text style={styles.toolLabel}>Upload to GasyTab</Text>
+            <Text style={styles.toolLabel}>{t('upload_to_gasytab')}</Text>
             <TouchableIcon onPress={uploadSong} size={25} name="upload" />
           </View>
         </TouchableHighlight>

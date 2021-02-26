@@ -12,7 +12,6 @@ export default class LyricsService extends BaseService {
   }
 
   async getSearch(query: string): Promise<Doc[]> {
-    Alert.alert('Info', this.baseUrl + '/api/v1/search/' + query);
     const result = await axios.get(this.baseUrl + '/api/v1/search/' + query);
     return result.data;
   }
