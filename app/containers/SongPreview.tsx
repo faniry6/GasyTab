@@ -34,6 +34,7 @@ const SongPreview: FunctionComponent<Props> = props => {
   let artist_ = props.route.params.artist;
   let lyricist = props.route.params.lyricist;
   let chordSheet = props.route.params.chordSheet;
+  let id = props.route.params.id;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,18 +84,21 @@ const SongPreview: FunctionComponent<Props> = props => {
       let lyricist = parsedSong.getMetaData('lyricist')!;
 
       let headerlessContent = chordSheet_content!;
-      // headerlessContent = headerlessContent.replace(/{artist:[^}]*}\n/g, '');
-      // headerlessContent = headerlessContent.replace(/{title:[^}]*}\n/g, '');
-      // headerlessContent = headerlessContent.replace(/{lyricist:[^}]*}\n/g, '');
       headerlessContent = headerlessContent.replace(/{title:(.*)}\n/g, '');
       headerlessContent = headerlessContent.replace(/{artist:(.*)}\n/g, '');
       headerlessContent = headerlessContent.replace(/{lyricist:(.*)}\n/g, '');
-      console.log(headerlessContent);
+
       let artist: Artist | undefined = Artist.getByName(artistName);
       if (artist == null) {
         artist = Artist.create(artistName);
       }
-      let song = Song.create(artist, songTitle, lyricist, headerlessContent);
+      let song = Song.create(
+        artist,
+        songTitle,
+        lyricist,
+        headerlessContent,
+        id,
+      );
 
       props.navigation.replace('SongView', {
         id: song.id,

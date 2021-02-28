@@ -79,10 +79,6 @@ export class Song {
   }
   static getChordPro(song: Song) {
     let headerlessContent = song.content;
-
-    // headerlessContent = headerlessContent.replace(/{title:(.*)}\n/g, '')
-    // headerlessContent = headerlessContent.replace(/{artist:(.*)}\n/g, '')
-    // headerlessContent = headerlessContent.replace(/{lyricist:(.*)}\n/g, '')
     headerlessContent = headerlessContent.replace(/{artist:[^}]*}\s\n/g, '');
     headerlessContent = headerlessContent.replace(/{title:[^}]*}\s\n/g, '');
     headerlessContent = headerlessContent.replace(/{lyricist:[^}]*}\s\n/g, '');

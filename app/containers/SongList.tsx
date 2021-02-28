@@ -68,7 +68,7 @@ const SongList: FunctionComponent<Props> = (props: Props) => {
   }
 
   function onPressEditSong(id: string) {
-    props.navigation.navigate('SongEdit', {id});
+    props.navigation.navigate('SongEdit', {id: id});
   }
   function onPressGoToArtist(id: string) {
     let artist = Song.getById(id)!.artist;

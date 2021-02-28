@@ -8,9 +8,6 @@ import { RootStackParamList } from "../AppNavigation";
 import LanguageContext from "../languages/LanguageContext";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { RouteProp, useIsFocused } from "@react-navigation/native";
-import LyricsFinder from "../components/LyricsFinder";
-import SearchBar from "../components/SearchBar";
-import OnlineSearch from "../containers/OnlineSearch";
 
 type SongEditScreenRouteProp = RouteProp<RootStackParamList, 'SongEdit'>
 type SongEditScreenNavigationProp = StackNavigationProp<
@@ -48,14 +45,16 @@ const SongEdit: FunctionComponent<Props> = (props) => {
  
   useEffect(() => {
     if (isFocused) {
-      
       if (id != null) {
         let song = Song.getById(id)!
         setTitle(song.title)
         setArtist(song.artist.name)
         setLyricist(song.lyricist)
-        setContent(removeMetaTags(song.content))
-        setChangeLyricist(true)
+        let song_ = new ChordSheetJS.ChordProParser().parse(removeMetaTags(song.content))
+        let plainText = new ChordSheetJS.TextFormatter().format(song_)
+        plainText = compress(plainText)
+        setContent(plainText)
+        setChangeLyricist(false)
       } else if (props.route.params?.title != null) {
         let song = props.route.params?.lyrics
         setTitle(props.route.params?.title)
@@ -68,65 +67,11 @@ const SongEdit: FunctionComponent<Props> = (props) => {
     }
   }, [isFocused]);
 
-  // useEffect(
-  //   React.useCallback(() => {
-  //   setTitle(props.route.params?.title)
-  //   Alert.alert("this is the title inside " + a)
-  //   if (title != null) {
-  //     let song = props.route.params?.lyrics
-  //     setTitle(title)
-  //     setArtist(props.route.params?.artist)
-  //     if (song != null) {
-  //       setContent(song)
-  //     }
-  //   }
-  //   }, [title])
-  // );
-  
-  // useEffect(
-  //   let title = props.route.params?.title
-  //   Alert.alert("this is the title" + title)
-  //   if (title != null) {
-  //   let song = props.route.params?.lyrics
-  //   setTitle(title)
-  //   setArtist(props.route.params?.artist)
-  //   if (song != null) {
-  //     setContent(song)
-  //   }
-  // } , []),
-  
-
-  // useEffect(() => {
-  //   // let id = props.route.params?.id
-  //   // if (id != null) {
-  //   //   let song = Song.getById(id)!
-  //   //   setTitle(song.title)
-  //   //   setArtist(song.artist.name)
-  //   //   setLyricist(song.lyricist)
-  //   //   setContent(removeMetaTags(song.content))
-  //   //   setChangeLyricist(false)
-  //   // }
-    
-  //   let title = props.route.params?.title
-    
-  //   if (title != null) {
-  //     Alert.alert("this is the title" + title)
-  //     Alert.alert(title)
-  //     setTitle("Title")
-  //     let song = props.route.params?.lyrics
-  //     setTitle(title)
-  //     setArtist(props.route.params.artist)
-  //     if(song != null)
-  //       setContent(song)
-  //     setTitle("This title")
-  //   }
-  // }, [])
-
   function saveSong() {
     if (title.trim() == '') return setError(t('invalid_title'))
     if (artist.trim() == '') return setError(t('invalid_artist'))
     if (content.trim() == '') return setError(t('invalid_content'))
-    if (lyricist.trim() == '') return setError(t('invalid_lyricist'))
+    if (lyricist.trim() == '' || lyricist.trim().toLowerCase() == 'gasytab') return setError(t('invalid_lyricist'))
 
     let artistName = artist.trim()
     let songTitle = title.trim()
@@ -201,10 +146,7 @@ const SongEdit: FunctionComponent<Props> = (props) => {
     "You can edit any song here\n" +
     " C              Dm          G\n" +
     "Using the chord sheet format\n\n\n"
-function openSideMenu() {
-    setIsSideMenuOpen(!isSideMenuOpen);
-  }
- 
+  
   return (
     <>
     {/* <LyricsFinder

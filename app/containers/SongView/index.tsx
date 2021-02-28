@@ -148,7 +148,7 @@ const SongView: FunctionComponent<Props> = props => {
       premium: song.lyricist == 'GasyTab' ? 'yes' : 'no',
     };
     if (getService(services[1].name)!.postSong(JSON.stringify(content))) {
-      Alert.alert('Info', 'Post successfully to database');
+      Alert.alert('Info', t('post_success'));
     }
   }
   function showTone(tone: number) {

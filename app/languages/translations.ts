@@ -79,6 +79,7 @@ export const sentences = [
   'lyrics',
   'online_service',
   'upload_to_gasytab',
+  'post_success',
 ] as const;
 export type SentenceID = typeof sentences[number];
 export type LanguageID = typeof languages[number];
@@ -172,6 +173,7 @@ const translations: Languages = {
     lyrics: 'Lyrics',
     online_service: 'Service',
     upload_to_gasytab: 'upload to gasytab',
+    post_success: 'Success',
   },
   // pt_br: {
   //   language_name: 'Português (Brasil)',
@@ -297,7 +299,7 @@ const translations: Languages = {
     show_tabs: 'Tab',
     close: 'Hidina',
     info: 'Info',
-    error: 'Erreur',
+    error: 'Tsy mety',
     invalid_file: 'Tsy manakery ny fichier anao',
     playlist_saved: 'Votahiry lisitra',
     share_message:
@@ -337,6 +339,7 @@ const translations: Languages = {
     lyrics: 'Tononkira',
     online_service: 'Hitady',
     upload_to_gasytab: 'Alefa gasytab.com',
+    post_success: 'Mankasitraka fa voaray',
   },
 };
 export default translations;

@@ -59,7 +59,7 @@ const PlaylistList: FunctionComponent<Props> = (props: Props) => {
     for (var s in p.songs) {
       let song = p.songs[s];
       if (song.lyricist.toUpperCase() == 'GASYTAB') {
-        Alert.alert('Tsy mety', t('not_sharable_playlist'));
+        Alert.alert(t('error'), t('not_sharable_playlist'));
         return;
       }
     }
